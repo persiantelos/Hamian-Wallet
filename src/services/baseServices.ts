@@ -4,7 +4,7 @@ export default class BaseServices
 {
     static async post(url:string,data:any)
     {
-       var path=Config.server+url;
+       var path=url;
        var headers:any={};
        if(window.localStorage.token)
        {
@@ -15,7 +15,7 @@ export default class BaseServices
     }
     static async postData(url:string,data:any)
     {
-       var path=Config.server+url;
+       var path=url;
        var headers:any={};
        if(window.localStorage.token)
        {
