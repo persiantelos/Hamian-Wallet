@@ -26,7 +26,8 @@
     "vue-persian-datetime-picker": "^2.1.5",
     "vue-range-component": "^1.0.3",
     "vue-sidebar-menu": "^5.0.1",
-    "vue-slick-carousel": "^1.0.5"
+    "vue-slick-carousel": "^1.0.5",
+    "ws": "^7.0.0"
   },
   "devDependencies": {
     "@quasar/app": "^2.0.0",

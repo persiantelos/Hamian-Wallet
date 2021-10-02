@@ -1,10 +1,15 @@
 <template>
-  <router-view />
+  <div id="q-app">
+    <router-view />
+  </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'App'
+import { Component, Prop, Vue } from 'vue-property-decorator'; 
+@Component({ 
+  components:{
+  }
 })
+export default class APP extends Vue{ 
+   
+}
 </script>

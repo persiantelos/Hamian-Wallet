@@ -22,10 +22,14 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'Error404'
+<script lang="ts"> 
+import { Component, Prop, Vue } from 'vue-property-decorator'; 
+@Component({ 
+  components:{
+  }
 })
+export default class Error404 extends Vue{
+  @Prop({default:"" })  value!:string;
+   
+}
 </script>
