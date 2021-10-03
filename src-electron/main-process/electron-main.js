@@ -1,5 +1,6 @@
 import { app, BrowserWindow, nativeTheme } from 'electron'
 
+const HighLevelSockets = require('../services/socket');
 try {
   if (process.platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
     require('fs').unlinkSync(require('path').join(app.getPath('userData'), 'DevTools Extensions'))
@@ -19,7 +20,9 @@ let mainWindow
 function createWindow () {
   /**
    * Initial window options
-   */
+   */ 
+   HighLevelSockets
+  console.log('------------------', process.env.APP_URL,)
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,

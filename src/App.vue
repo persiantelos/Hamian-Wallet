@@ -22,8 +22,8 @@ export default class APP extends Vue{
     //           nodeIntegration: true
     //       },
     //   });
-      console.log('------------->')
-      Config.soket=new SocketService(); 
+      console.log('------------->',global['test'])
+      //Config.soket=new SocketService(); 
    }
 }
 </script>
