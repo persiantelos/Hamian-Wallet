@@ -1,9 +1,9 @@
-import { ServerOptions } from "https";
-const CoreSocketService = require("@walletpack/core/services/utility/SocketService");
+import { ServerOptions } from "https"; 
 const net = require('net');
 const http = require('http');
-const https = require('https');
-const WebSocket = require('ws');
+const https = require('https'); 
+// import WebSocket from 'ws'
+const WebSocket =window.require('ws');
 export default class SocketService
 {
     ports:any={};
@@ -14,7 +14,30 @@ export default class SocketService
     }
     async init()
     {
-		const _certs = await CoreSocketService.getCerts();
+        console.log('-------->',this.websockets)
+		const _certs = {
+            key: `-----BEGIN RSA PRIVATE KEY-----
+            MIICWgIBAAKBgGZpxt0wKPsxRuPlGndXaKJ7U+AgCyufPB9xqDxBE6Vz5iFuWq3r
+            gFt6UcHhtpjHEMwY3rRBxMPgJpor4n9j96xKQVjqJY0ygQnj+XG3IEAXs6yxaX0Z
+            tZyNCMxOynrvljr+wMQopduFNq/zL6e3aMW57eqelcl/O6kW2IyTxTsZAgMBAAEC
+            gYAXUkci33C1owcNpoJcYt9FAOicxS9GA8DhODSjY/5hUv845bRonpRgQH6VtBys
+            tcgxcghk7AUuxcCEozG06MLhgl3JBq2/G2wifOysgEkqW2AQc4h2KA9Ny6J77MHY
+            6JCRcbufyFCBaAMaLY/o3hdAErkzfuZH+gngUUAf5CjfcQJBAL6NFaejqWdGd3Kk
+            Bqqj91gPUcMJ3bkiM7BjiYc2RbwKX9sF9rzhJXLhcJR4UrjtY7A633OXR9VPV8mR
+            FJB4d/8CQQCJltZt9heCTgaWrJo9LE2cZr4V8sVzAg18X/fME7u2b+VBSL1MM2zZ
+            7F4HeLbNw4cxZ7xUEEwAe4s6MmJ2jwznAkARYBwRZUMVP7+0nHBfLwRm6z6xYjzt
+            nMjJ1Mm9op1JQEjtV+Xf40fe6d+yKiag5kSo1TV6/Nh4AvwmTSxq4BFRAkAVFZtY
+            kHy7yC80SdD9DNv72rbIcEKXxDnC1IYJrQB4DZ+pKHdxxPOqVZF3PaVt1MfT51yx
+            2Sl8bXJBgdUa7AMDAkB8aEBkAEtLFSk+JPRxSWrVX6POI7Ilq1vExSoJ8YBBYfGJ
+            hYN9dn6pi+68bNd4i7MwACveEEOM2EaYAVPAoZ+l
+            -----END RSA PRIVATE KEY-----`,
+            cert: `-----BEGIN PUBLIC KEY-----
+            MIGeMA0GCSqGSIb3DQEBAQUAA4GMADCBiAKBgGZpxt0wKPsxRuPlGndXaKJ7U+Ag
+            CyufPB9xqDxBE6Vz5iFuWq3rgFt6UcHhtpjHEMwY3rRBxMPgJpor4n9j96xKQVjq
+            JY0ygQnj+XG3IEAXs6yxaX0ZtZyNCMxOynrvljr+wMQopduFNq/zL6e3aMW57eqe
+            lcl/O6kW2IyTxTsZAgMBAAE=
+            -----END PUBLIC KEY-----`
+          };;
 		if(this.websockets.length) return this.websockets;
 		await this.findOpenPorts();
 		const requestHandler = (_, res) => {
@@ -27,7 +50,7 @@ export default class SocketService
 		}
 		await Promise.all(Object.keys(this.ports).map(async port => {
 			const server = this.ports[port] ? https.createServer(_certs, requestHandler) : http.createServer(requestHandler);
-			this.websockets.push(new WebSocket.Server({ server }));
+			this.websockets.push(new WebSocket({ server }));
 			server.listen(port);
 			return true;
 		}));
