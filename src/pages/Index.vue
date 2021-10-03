@@ -1,6 +1,6 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    
+    <p style="color:red">index</p>
   </q-page>
 </template>
 

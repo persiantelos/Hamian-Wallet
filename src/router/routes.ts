@@ -6,9 +6,14 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') },
-      // { path: 'login', component: () => import('pages/auth/login.vue') },
       // { path: 'modelpage/:name/:scope', component: () => import('pages/admin/modelPage.vue') },
-
+    ],
+  },
+  {
+    path: '/login',
+    component: () => import('layouts/Authentication.vue'),
+    children: [
+      { path: '/', component: () => import('pages/auth/Login.vue') },
     ],
   },
 
