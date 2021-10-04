@@ -35,13 +35,16 @@
     </q-drawer>
 
     <q-page-container>
+      {{data}}
       <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script lang="ts">  
-import { Component, Prop, Vue } from 'vue-property-decorator';  
+import SocketService from 'src/localService/socketService';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import LoginRequest from 'src/models/local/loginRequest'  
 @Component({ 
   name:'MainLayout',
   components:{
@@ -50,9 +53,19 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 })
 export default class MainLayout extends Vue{
   leftDrawerOpen:boolean=false; 
+  eventid:string="";
+  data:LoginRequest=new LoginRequest();
   toggleLeftDrawer()
   {
     this.leftDrawerOpen=!this.leftDrawerOpen 
+  }
+  recivedPair(data:LoginRequest)
+  {
+    console.log('identityFromPermissions',data)
+    this.data=data;
+  }
+  mounted() {
+    SocketService.addEvent("identityFromPermissions",this.recivedPair); 
   }
 }
 </script>

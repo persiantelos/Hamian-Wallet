@@ -1,20 +1,19 @@
 <template>
-  <div id="q-app">
+  <div id="q-app">dd
     <router-view />
   </div>
 </template>
-<script lang="ts">
-import electron from 'electron';
-import { Component, Prop, Vue } from 'vue-property-decorator'; 
-import Config from './common/config';
-import SocketService from './localService/socketService';
-const BrowserWindow = electron.remote.BrowserWindow;
+<script lang="ts"> 
+import { Component, Prop, Vue } from 'vue-property-decorator';  
+
+const {remote, ipcRenderer} = window.require('electron');
 @Component({ 
   components:{
   }
 })
 export default class APP extends Vue{ 
-   mounted() {
+   mounted() { 
+
     //  let mainWindow = new BrowserWindow( {
     //       width: 400,
     //       height: 300,

@@ -1,4 +1,4 @@
-import { app, BrowserWindow, nativeTheme } from 'electron'
+import { app, BrowserWindow, nativeTheme,ipcMain } from 'electron'
 
 const HighLevelSockets = require('../services/socket');
 try {
@@ -21,8 +21,6 @@ function createWindow () {
   /**
    * Initial window options
    */ 
-   HighLevelSockets
-  console.log('------------------', process.env.APP_URL,)
   mainWindow = new BrowserWindow({
     width: 1000,
     height: 600,
@@ -37,6 +35,9 @@ function createWindow () {
       // preload: path.resolve(__dirname, 'electron-preload.js')
     }
   })
+  HighLevelSockets.setMainWindow(mainWindow);
+  HighLevelSockets.initialize()
+  console.log('------------------', process.env.APP_URL,)
 
   mainWindow.loadURL(process.env.APP_URL)
 
@@ -55,6 +56,12 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (mainWindow === null) {
+    
     createWindow()
   }
 })
+
+ipcMain.on('prompt-response', (_, {event,data,origin,id}) => {
+  console.log('>>>>>>>>>>>>>>>>',event,data);
+  HighLevelSockets.emit(origin,id,event,data)
+});

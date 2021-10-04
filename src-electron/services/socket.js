@@ -3,7 +3,7 @@ const http = require('http');
 const https = require('https');
 const WebSocket = require('ws');
 const net = require('net');
-
+const fs=require('fs')
 
 let mainWindow;
 const sendToEmbed = (payload) => mainWindow.webContents.send('socketResponse', payload);
@@ -47,7 +47,8 @@ class LowLevelSocketService {
 			const id = Math.round(Math.random() * 999999999).toString();
 
 			// Just logging errors for debugging purposes (dev only)
-			if(isDev) socket.on('error', async request => console.log('error', request));
+			//if(isDev) 
+			socket.on('error', async request => console.log('error', request));
 
 			// Different clients send different message types for disconnect (ws vs socket.io)
 			socket.on('close',      () => delete this.openConnections[origin+id]);
@@ -77,10 +78,11 @@ class LowLevelSocketService {
 
 				if(!this.openConnections.hasOwnProperty(origin+id)) this.openConnections[origin+id] = socket;
 
+				// console.log('------->>>>>>>>',origin)
 				switch(type){
-					case 'pair':        return sendToEmbed({type:'pair', request, id});
+					case 'pair':        return sendToEmbed({type:'pair', request, id,origin});
 					case 'rekeyed':     return this.rekeyPromise.resolve(request);
-					case 'api':         return sendToEmbed({type:'api', request, id});
+					case 'api':         return sendToEmbed({type:'api', request, id,origin});
 				}
 
 			});
@@ -104,6 +106,7 @@ class LowLevelSocketService {
 			const server = this.ports[port] ? https.createServer(_certs, requestHandler) : http.createServer(requestHandler);
 			this.websockets.push(new WebSocket.Server({ server }));
 			server.listen(port);
+			console.log('------------------------',port)
 			return true;
 		}));
 
@@ -168,7 +171,10 @@ class HighLevelSockets {
 	}
 
 	static async initialize(){
-		const certs = await CoreSocketService.getCerts();
+		const certs ={
+            key: fs.readFileSync('src-electron/cert/key.pem'),
+            cert:fs.readFileSync('src-electron/cert/cert.pem')
+          };
 		return sockets.initialize(certs);
 	}
 
