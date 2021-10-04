@@ -1,12 +1,46 @@
+// import {  BrowserWindow  } from 'electron';
 
 const http = require('http');
 const https = require('https');
 const WebSocket = require('ws');
 const net = require('net');
 const fs=require('fs')
-
+const {BrowserWindow} =require('electron')
 let mainWindow;
-const sendToEmbed = (payload) => mainWindow.webContents.send('socketResponse', payload);
+const sendToEmbed = (payload) =>{
+	//
+			console.log('>>>>>>>>>>>>>>>',payload)
+	if(payload.type=='api')
+	{
+		if(payload.request.data && payload.request.data.type=='identityFromPermissions')
+		{
+
+
+			var wind = new BrowserWindow({
+				width: 500,
+				height: 700,
+				useContentSize: true,
+				webPreferences: { 
+				  nodeIntegration: process.env.QUASAR_NODE_INTEGRATION,
+				  nodeIntegrationInWorker: process.env.QUASAR_NODE_INTEGRATION, 
+				}
+			  }) 
+			  wind.loadURL(process.env.APP_URL+'/#/login/local')
+			  setTimeout(()=>{
+				  wind.webContents.send('socketResponse', payload);
+
+			  },1000)
+
+		}
+
+
+	}
+	else if(payload.type=='pair')
+	{
+		//mainWindow.webContents.send('socketResponse', payload);
+  		HighLevelSockets.emit(payload.origin,payload.id,'paired',true)
+	}
+} 
 
 class LowLevelSocketService {
 
@@ -91,7 +125,7 @@ class LowLevelSocketService {
 		if(this.websockets.length) return this.websockets;
 
 		await this.findOpenPorts();
-		sendToEmbed({type:'ports', ports:this.ports});
+		// sendToEmbed({type:'ports', ports:this.ports});
 
 		const requestHandler = (_, res) => {
 			res.setHeader('Access-Control-Allow-Origin', '*');

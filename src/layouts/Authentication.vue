@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf">ww
     <q-header elevated>
         <q-toolbar-title>
           Authentication login

@@ -13,16 +13,17 @@ const routes: RouteConfig[] = [
     path: '/login',
     component: () => import('layouts/Authentication.vue'),
     children: [
-      { path: '/', component: () => import('pages/auth/Login.vue') },
+      { path: '', component: () => import('pages/auth/Login.vue') },
+      { path: 'local', component: () => import('pages/auth/LocalLogin.vue') },
     ],
   },
 
   // Always leave this as last one,
   // but you can also remove it
-  {
-    path: '/:catchAll(.*)*',
-    component: () => import('pages/Error404.vue'),
-  },
+  // {
+  //   path: '/:catchAll(.*)*',
+  //   component: () => import('pages/Error404.vue'),
+  // },
 ];
 
 export default routes;

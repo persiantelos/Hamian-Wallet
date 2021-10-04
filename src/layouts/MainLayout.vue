@@ -54,18 +54,9 @@ import LoginRequest from 'src/models/local/loginRequest'
 export default class MainLayout extends Vue{
   leftDrawerOpen:boolean=false; 
   eventid:string="";
-  data:LoginRequest=new LoginRequest();
   toggleLeftDrawer()
   {
     this.leftDrawerOpen=!this.leftDrawerOpen 
-  }
-  recivedPair(data:LoginRequest)
-  {
-    console.log('identityFromPermissions',data)
-    this.data=data;
-  }
-  mounted() {
-    SocketService.addEvent("identityFromPermissions",this.recivedPair); 
   }
 }
 </script>
