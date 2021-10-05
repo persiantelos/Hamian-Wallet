@@ -5,7 +5,7 @@ const routes: RouteConfig[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') },
+      { path: '', component: () => import('pages/Index.vue'),name:'home' },
       // { path: 'modelpage/:name/:scope', component: () => import('pages/admin/modelPage.vue') },
     ],
   },
@@ -13,8 +13,9 @@ const routes: RouteConfig[] = [
     path: '/login',
     component: () => import('layouts/Authentication.vue'),
     children: [
-      { path: '', component: () => import('pages/auth/Login.vue') },
+      { path: '', component: () => import('pages/auth/Login.vue'),name:'login' },
       { path: 'local', component: () => import('pages/auth/LocalLogin.vue') },
+      { path: 'loginwithfile', component: () => import('pages/auth/LoginWithFile.vue'),name:'loginwithfile' },
     ],
   },
 
