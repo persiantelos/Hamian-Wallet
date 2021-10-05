@@ -13,8 +13,15 @@ const routes: RouteConfig[] = [
     path: '/login',
     component: () => import('layouts/Authentication.vue'),
     children: [
-      { path: '', component: () => import('pages/auth/Login.vue'),name:'login' },
+      { path: '', component: () => import('pages/auth/Login.vue'),name:'Login' },
       { path: 'local', component: () => import('pages/auth/LocalLogin.vue') },
+    ],
+  },
+  {
+    path: '/CreateAccount',
+    component: () => import('layouts/Authentication.vue'),
+    children: [
+      { path: '', component: () => import('pages/auth/CreateAccount.vue'),name:'CreateAccount' },
       { path: 'loginwithfile', component: () => import('pages/auth/LoginWithFile.vue'),name:'loginwithfile' },
     ],
   },

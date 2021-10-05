@@ -5,15 +5,15 @@
       <q-img src="../../assets/picture/login-bg.png"/>
       <div class="col-12 login-box ">
           <!-- title -->
-        <div class=" center">
+        <div class=" center q-mb-lg">
           <img class="icon" src="../../assets/picture/Shape.svg" />
           <h1 class="title">CaDas</h1>
         </div>
         <!-- login Box -->
-        <div class="center">
+        <div class="center ">
           <div class="card q-pa-xs q-pt-lg q-pb-lg">
-            <p class="card-title">Getting Started</p>
-            <p class="card-sub-title">Create an account to continue!</p>
+            <p class="card-title">Login</p>
+            <p class="card-sub-title">Enter your password to login to your account!</p>
             <q-form class="q-pl-md q-pr-md q-pt-sm">
                 <!-- password -->
                 <q-input 
@@ -22,48 +22,21 @@
                 style="border: 1px solid white" 
                 bg-color="grey-10" 
                 color="white" 
-                filled="#D9D9D9" 
                 outlined 
                 standout="bg-gray-10 text-white color-white"
                 v-model="person.password" 
                 label="Password" />
                 <!-- confirm password -->
-                <q-input 
-                dark
-                class="q-ma-xs q-mt-sm input-border"  
-                style="border: 1px solid white" 
-                bg-color="grey-10" 
-                filled="#D9D9D9" 
-                outlined 
-                standout="bg-gray-10 text-white"
-                v-model="person.confirmPassword" 
-                label="Confirm your Password" />
             </q-form>
-            <!-- password validate -->
-            <div class="password-strong center">
-              <div class="q-pa-md row">
-                <span class="q-mr-sm q-ml-sm fill"></span>
-                <span class="q-mr-sm q-ml-sm fill"></span>
-                <span class="q-mr-sm q-ml-sm fill"></span>
-                <span class="q-mr-sm q-ml-sm fill"></span>
-                <span class="q-mr-sm q-ml-sm fill"></span>
-                <span class="q-mr-sm q-ml-sm fill"></span>
-              </div>
-            </div>
-            <!-- conditions -->
-            <div class="team-conditions-box q-pl-md" align="left">
-              <q-checkbox color="white" dark v-model="rulesCondition" label="By creating an account, you agree to our"/><br/>
-              <router-link class="q-pl-lg q-ml-md router-link" to="condotionpage">
-                Team and Conditions
-                </router-link>
-            </div>
-            <!-- register -->
-            <div class="center col-12 q-pa-md q-pl-md q-pr-md">
-              <q-btn class="register-btn full-width"   label="Register" />
+            <!-- login -->
+            <div class="center col-12 q-pa-md q-pl-md q-mt-md q-pr-md">
+              <q-btn class="register-btn full-width"   label="login" />
             </div>
             <!-- sign in  -->
-            <div class="col-12 center">
-              <p class="text-gray q-pa-none ">Allready have an account? <router-link class="router-link" to="loginwithfile">Sign in</router-link> </p>
+            <div class="center " align="center">
+              <p class="text-gray q-mt-sm ">Don't have an account?  
+                  <router-link class="router-link " :to="{name:'CreateAccount'}">Create an account.</router-link> 
+              </p>
             </div>
           </div>
         </div>
@@ -123,18 +96,6 @@ export default class Login extends Vue{
       .input-border{
         border: 1px wolid $white;
       }
-      .password-strong{
-        .fill{
-          background-color: $gray-10;
-          min-height: 4px;
-          border-radius: 1px;
-          min-width: 36px;
-        }
-      }
-      .team-conditions-box{
-        color: $white;
-        font-weight: 120;
-      }
       .router-link{
         font-weight: 300 !important;
       }
@@ -148,14 +109,7 @@ export default class Login extends Vue{
       .text-gray{
         color:#8F92A1;
       }
-      .register-google-btn{
-        background-color: #242424;
-        font-weight: 300;
-        border-radius: 25px;
-        padding: 5px;
-      }
     }
-    
   }
 }
 

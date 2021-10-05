@@ -28,9 +28,10 @@
         <q-item-label
           header
         >
-          Essential Links
-          <router-link :to="{name:'login'}">Login</router-link>
-          <router-link :to="{name:'home'}">Home</router-link>
+          Essential Links<br/>
+          <router-link :to="{name:'CreateAccount'}">CreateAccount</router-link><br/>
+          <router-link :to="{name:'Login'}">Login</router-link><br/>
+          <router-link :to="{name:'home'}">Home</router-link><br/>
         </q-item-label>
  
       </q-list>

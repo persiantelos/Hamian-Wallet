@@ -26,21 +26,16 @@
                 standout="bg-gray-10 text-white color-white"
                 v-model="person.password" 
                 label="Password" />
-                <!-- import file -->
-                <q-file 
+                <!-- confirm password -->
+                <q-input 
                 dark
                 class="q-ma-xs q-mt-sm input-border"  
                 style="border: 1px solid white" 
                 bg-color="grey-10" 
-                color="white" 
                 outlined 
-                v-model="person.file" 
-                label="Upload your File" >
-                <template v-slot:append>
-                    <q-icon dark size="24px" name="cloud_upload"></q-icon>
-                </template>
-                </q-file>
-                
+                standout="bg-gray-10 text-white"
+                v-model="person.confirmPassword" 
+                label="Confirm your Password" />
             </q-form>
             <!-- password validate -->
             <div class="password-strong center">
@@ -62,11 +57,14 @@
             </div>
             <!-- register -->
             <div class="center col-12 q-pa-md q-pl-md q-pr-md">
-              <q-btn class="register-btn full-width"   label="Login" />
+              <q-btn class="register-btn full-width"   label="Register" />
             </div>
-            <!-- login  -->
+            <!-- sign in  -->
             <div class="col-12 center">
-              <p class="text-gray q-pa-none ">You don't Have an accout? <router-link class="router-link" :to="{name:'CreateAccount'}">Register</router-link> </p>
+              <p class="text-gray q-pa-none ">Allready have an account? <router-link class="router-link" :to="{name:'Login'}">Sign in</router-link> </p>
+            </div>
+            <div class="col-12 center">
+               <router-link class="router-link text-gray q-pa-none" :to="{name:'loginwithfile'}">Try another way to Create account</router-link>
             </div>
           </div>
         </div>
@@ -85,7 +83,7 @@ import {Vue , Component} from "vue-property-decorator"
 export default class Login extends Vue{
   person:any={
     password:'',
-    file:[],
+    confirmPassword:'',
   };
   rulesCondition:boolean=false;
 }
@@ -150,6 +148,12 @@ export default class Login extends Vue{
       }
       .text-gray{
         color:#8F92A1;
+      }
+      .register-google-btn{
+        background-color: #242424;
+        font-weight: 300;
+        border-radius: 25px;
+        padding: 5px;
       }
     }
     
