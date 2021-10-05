@@ -10,6 +10,7 @@
 import SocketService from "src/localService/socketService";
 import LoginRequest from "src/models/local/loginRequest";
 import {Vue , Component} from "vue-property-decorator"
+import RequestTypes from 'src/models/local/RequestTypes'
 @Component({
     components:{
 
@@ -20,15 +21,15 @@ export default class Login extends Vue{
 
   recivedPair(data:LoginRequest)
   {
-    console.log('identityFromPermissions',data)
+    console.log(RequestTypes.identityFromPermissions ,data)
     this.data=data;
   }
   mounted() {
-    SocketService.addEvent("identityFromPermissions",this.recivedPair); 
+    SocketService.addEvent(RequestTypes.identityFromPermissions,this.recivedPair); 
   }
   accept()
   {
-      
+
   }
 }
 </script>
