@@ -1,0 +1,9 @@
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.router-link{
+    color: #0052CC !important;
+    text-decoration: none;
+}

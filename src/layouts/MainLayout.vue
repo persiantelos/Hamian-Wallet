@@ -29,13 +29,15 @@
           header
         >
           Essential Links
+          <router-link :to="{name:'login'}">Login</router-link>
+          <router-link :to="{name:'home'}">Home</router-link>
         </q-item-label>
  
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      {{data}}
+      <!-- {{data}} -->
       <router-view />
     </q-page-container>
   </q-layout>
