@@ -1,6 +1,7 @@
 import { app, BrowserWindow, nativeTheme,ipcMain } from 'electron'
 
 const HighLevelSockets = require('../services/socket');
+const Storage = require('../services/storage');
 try {
   if (process.platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
     require('fs').unlinkSync(require('path').join(app.getPath('userData'), 'DevTools Extensions'))
@@ -14,6 +15,7 @@ try {
 if (process.env.PROD) {
   global.__statics = __dirname
 }
+global.windows={};
 
 let mainWindow
 
@@ -36,13 +38,14 @@ function createWindow () {
     }
   })
   HighLevelSockets.setMainWindow(mainWindow);
-  HighLevelSockets.initialize()
-  console.log('------------------', process.env.APP_URL,)
-
-  mainWindow.loadURL(process.env.APP_URL)
-
+  HighLevelSockets.initialize() 
+  var address=process.env.APP_URL+'?globalid=main';
+  console.log('>>>>>>>>>>>>>>',address)
+  mainWindow.loadURL(address)
+  global.windows['main']=mainWindow;
   mainWindow.on('closed', () => {
-    mainWindow = null
+    mainWindow = null;
+    delete global.windows['main'];
   })
 }
 
@@ -61,7 +64,26 @@ app.on('activate', () => {
   }
 })
 
+var storage=new Storage();
 ipcMain.on('prompt-response', (_, {event,data,origin,id}) => {
   console.log('>>>>>>>>>>>>>>>>',event,data);
   HighLevelSockets.emit(origin,id,event,data)
+});
+ipcMain.on('transfer', (_, {data,name,id,globalId}) => {
+  console.log('>>>>>>>>>>>>>>>>',data,name,id); 
+
+  var resp={};
+  if(name=='storage')
+  {
+    var action=data.action;
+    if(action)
+    {
+      resp= storage[action](data)
+    }
+  }
+  console.log('>>>>>>>>>>>>>>>>',resp); 
+  if(global.windows[globalId])
+  {
+    global.windows[globalId].webContents.send('transfer', {id,data:resp}); 
+  } 
 });

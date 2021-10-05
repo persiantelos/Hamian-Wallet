@@ -1,4 +1,6 @@
 import { route } from 'quasar/wrappers';
+import BaseLocalService from 'src/localService/baseLocalService';
+import StorageService from 'src/localService/storageService';
 import VueRouter from 'vue-router';
 import routes from './routes';  
 /*
@@ -19,40 +21,23 @@ export default route(function ({ Vue }) {
     mode: process.env.VUE_ROUTER_MODE,
     base: process.env.VUE_ROUTER_BASE
   });
-
-  var getQuery=()=>
-  {
-    var obj:any={}
-    var str=window.location.search.substr(1).split('&');
-    for(var a of str)
+ 
+  Router.beforeEach(async(to, from, next) => { 
+    console.log('/////////////',to)
+    if(!to.meta?.isPublic)
     {
-      var split=a.split("=")
-      obj[split[0]]=split[1]
-    }
-    return obj;
-  }
-  var setQueryItems=function(query:any,prename:string)
-  {
-    console.log('set session')
-    for(var qu in query)
-    {
-      if(qu.indexOf(prename+'_')==0)
+      
+      const urlParams = new URLSearchParams(window.location.search); 
+      BaseLocalService.globalId=urlParams.get('globalid')??'';
+      var dt =await  StorageService.existData()
+      if(!dt)
       {
-        var name=qu.replace(prename+'_','');
-        var strdata= window.sessionStorage.getItem('query_'+prename);
-        var queryData:any={};
-        if(strdata)
-        {
-          try{
-            queryData=JSON.parse(strdata);
-          }catch(exp){}
-        }
-        queryData[name]=query[qu];
-        window.sessionStorage.setItem('query_'+prename,JSON.stringify(queryData));
+        next({path:'/createaccount'})
+        return
       }
-    }
-
-  }
+    } 
+    next()
+  })
  
   return Router;
 })
