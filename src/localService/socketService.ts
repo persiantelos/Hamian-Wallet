@@ -1,3 +1,4 @@
+import BaseRequest from "src/models/local/baseRequest";
 
 const {remote, ipcRenderer} = window.require('electron');
 export default class SocketService
@@ -34,7 +35,17 @@ export default class SocketService
 			}
 		}
 	}
-	static sendData(data:any){
+	static sendData(request:BaseRequest,data:any){
+		var dt={
+			event:'api',
+			data:JSON.parse(JSON.stringify(data)),
+			id:request.id,
+			origin:request.payloadOrigin
+		};
+		ipcRenderer.send('prompt-response',dt);
+
+	}
+	static send(data:any){
 		ipcRenderer.send('prompt-response',data);
 	}
 }
@@ -42,7 +53,7 @@ ipcRenderer.on('socketResponse', (event, payload) => {
 	console.log('payload',payload)
 	if(payload.type=='pair')
 	{
-		SocketService.sendData({event:"paired",data:true,id:payload.id,origin:payload.origin} );
+		SocketService.send({event:"paired",data:true,id:payload.id,origin:payload.origin} );
 	}
 	else if(payload.type=='api')
 	{
