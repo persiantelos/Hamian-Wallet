@@ -15,6 +15,7 @@ const routes: RouteConfig[] = [
     children: [
       { path: '', component: () => import('pages/auth/Login.vue'),name:'login' },
       { path: 'local', component: () => import('pages/auth/LocalLogin.vue') },
+      { path: 'loginwithfile', component: () => import('pages/auth/LoginWithFile.vue'),name:'loginwithfile' },
     ],
   },
 

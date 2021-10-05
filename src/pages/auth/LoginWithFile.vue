@@ -27,17 +27,22 @@
                 standout="bg-gray-10 text-white color-white"
                 v-model="person.password" 
                 label="Password" />
-                <!-- confirm password -->
-                <q-input 
+                <!-- import file -->
+                <q-file 
                 dark
                 class="q-ma-xs q-mt-sm input-border"  
                 style="border: 1px solid white" 
                 bg-color="grey-10" 
+                color="white" 
                 filled="#D9D9D9" 
                 outlined 
-                standout="bg-gray-10 text-white"
-                v-model="person.confirmPassword" 
-                label="Confirm your Password" />
+                v-model="person.file" 
+                label="Upload your File" >
+                <template v-slot:append>
+                    <q-icon dark size="24px" name="cloud_upload"></q-icon>
+                </template>
+                </q-file>
+                
             </q-form>
             <!-- password validate -->
             <div class="password-strong center">
@@ -59,11 +64,11 @@
             </div>
             <!-- register -->
             <div class="center col-12 q-pa-md q-pl-md q-pr-md">
-              <q-btn class="register-btn full-width"   label="Register" />
+              <q-btn class="register-btn full-width"   label="Login" />
             </div>
-            <!-- sign in  -->
+            <!-- login  -->
             <div class="col-12 center">
-              <p class="text-gray q-pa-none ">Allready have an account? <router-link class="router-link" to="loginwithfile">Sign in</router-link> </p>
+              <p class="text-gray q-pa-none ">You don't Have an accout? <router-link class="router-link" :to="{name:'login'}">Register</router-link> </p>
             </div>
           </div>
         </div>
@@ -82,7 +87,7 @@ import {Vue , Component} from "vue-property-decorator"
 export default class Login extends Vue{
   person:any={
     password:'',
-    confirmPassword:'',
+    file:'',
   };
   rulesCondition:boolean=false;
 }
