@@ -7,7 +7,7 @@
           <!-- title -->
         <div class=" center">
           <img class="icon" src="../../assets/picture/Shape.svg" />
-          <h1 class="title">CaDas</h1>
+          <h1 class="title">Hamian</h1>
         </div>
         <!-- login Box -->
         <div class="center">
