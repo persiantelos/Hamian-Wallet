@@ -1,7 +1,7 @@
 const { ipcRenderer} = window.require('electron');
 export default class BaseLocalService
 {
-    static globalId:string=Math.random().toString();
+    static globalId:string='';
     static counter:number=0;
     static temp:any={};
     static run(name:string,data:any)

@@ -70,7 +70,8 @@ ipcMain.on('prompt-response', (_, {event,data,origin,id}) => {
   HighLevelSockets.emit(origin,id,event,data)
 });
 ipcMain.on('transfer', (_, {data,name,id,globalId}) => {
-  console.log('>>>>>>>>>>>>>>>>',data,name,id); 
+  console.log('>>>>>>>>>>>>>>>>',data,name,id,globalId); 
+
 
   var resp={};
   if(name=='storage')
@@ -78,7 +79,7 @@ ipcMain.on('transfer', (_, {data,name,id,globalId}) => {
     var action=data.action;
     if(action)
     {
-      resp= storage[action](data)
+      resp= storage[action](data.data)
     }
   }
   console.log('>>>>>>>>>>>>>>>>',resp); 

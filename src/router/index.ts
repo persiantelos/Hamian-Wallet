@@ -23,17 +23,39 @@ export default route(function ({ Vue }) {
   });
  
   Router.beforeEach(async(to, from, next) => { 
-    console.log('/////////////',to)
     if(!to.meta?.isPublic)
     {
       
-      const urlParams = new URLSearchParams(window.location.search); 
-      BaseLocalService.globalId=urlParams.get('globalid')??'';
+      const urlParams = new URLSearchParams(window.location.search);
+      if(!BaseLocalService.globalId) 
+      {
+        if(window.sessionStorage.getItem('globalid'))
+        {
+          BaseLocalService.globalId=window.sessionStorage.getItem('globalid')??'';
+        }
+        else
+        {
+          BaseLocalService.globalId=urlParams.get('globalid')??'';
+          window.sessionStorage.setItem('globalid',BaseLocalService.globalId)
+        }
+
+      }
+        console.log('-------------------',BaseLocalService.globalId)
       var dt =await  StorageService.existData()
       if(!dt)
       {
         next({path:'/createaccount'})
         return
+      }
+      else
+      {
+        var islogin =await  StorageService.isLogin();
+        if(!islogin)
+        {
+          next({path:'/login'})
+          return
+
+        }
       }
     } 
     next()

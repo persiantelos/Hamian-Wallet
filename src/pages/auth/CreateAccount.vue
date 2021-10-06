@@ -57,7 +57,7 @@
             </div>
             <!-- register -->
             <div class="center col-12 q-pa-md q-pl-md q-pr-md">
-              <q-btn class="register-btn full-width"   label="Register" />
+              <q-btn class="register-btn full-width"   label="Register" @click="createAccount" />
             </div>
             <!-- sign in  -->
             <div class="col-12 center">
@@ -74,6 +74,7 @@
 </template>
 
 <script lang="ts">
+import StorageService from "src/localService/storageService";
 import {Vue , Component} from "vue-property-decorator"
 @Component({
     components:{
@@ -81,11 +82,16 @@ import {Vue , Component} from "vue-property-decorator"
     }
 })
 export default class Login extends Vue{
-  person:any={
+  person ={
     password:'',
     confirmPassword:'',
   };
   rulesCondition:boolean=false;
+  async createAccount()
+  {
+    var success=await StorageService.initData(this.person.password,'');
+    console.log('success:',success)
+  }
 }
 </script>
 

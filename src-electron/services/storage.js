@@ -1,6 +1,7 @@
 //const Store = require('electron-store');
 const fs =require('fs');
 var aesjs = require('aes-js');
+var pbkdf2 = require('pbkdf2');
 const {app} = require('electron');
 
 const Hamian_Setting = 'setting';
@@ -21,18 +22,33 @@ module.exports = class Storage{
         var exist = fs.existsSync(path);
         return exist;
     }
-    init(pass)
+    isLogin()
     {
-        
+        return !!password;
+    }
+    init(dt)
+    {
+        password=dt.password;
+        if(dt.data)
+        {
+
+        }
+        else
+        {
+            this.saveData({});
+        }
+        return true;
     }
     loadData(pass)
     {
+        
         password=pass;
         const path = `${app.getPath('userData')}/data.json`;
         var exist = fs.existsSync(path);
         if(!exist) return false;
         try{
-            var key=this.stringToByteArray(password);
+
+            var key=pbkdf2.pbkdf2Sync(password, 'salt', 1, 256 / 8, 'sha512');//this.stringToByteArray(password);
             var text = fs.readFileSync(path,{encoding: 'utf8'})+'';
             var textBytes = aesjs.utils.utf8.toBytes(text);
             var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
@@ -41,12 +57,13 @@ module.exports = class Storage{
             return JSON.parse(decryptedText) ;
 
         }catch(exp){}
+        return false
     }
     saveData(data)
     {
         var text=JSON.stringify(data);
         var textBytes = aesjs.utils.utf8.toBytes(text);
-        var key=this.stringToByteArray(password);
+        var key=pbkdf2.pbkdf2Sync(password, 'salt', 1, 256 / 8, 'sha512');//this.stringToByteArray(password);
         var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
         var encryptedBytes = aesCtr.encrypt(textBytes);
         const path = `${app.getPath('userData')}/data.json`;

@@ -30,7 +30,7 @@
             </q-form>
             <!-- login -->
             <div class="center col-12 q-pa-md q-pl-md q-mt-md q-pr-md">
-              <q-btn class="register-btn full-width"   label="login" />
+              <q-btn class="register-btn full-width"   label="login" @click="login" />
             </div>
             <!-- sign in  -->
             <div class="center " align="center">
@@ -46,6 +46,7 @@
 </template>
 
 <script lang="ts">
+import StorageService from "src/localService/storageService";
 import {Vue , Component} from "vue-property-decorator"
 @Component({
     components:{
@@ -53,11 +54,18 @@ import {Vue , Component} from "vue-property-decorator"
     }
 })
 export default class Login extends Vue{
-  person:any={
+  person={
     password:'',
     confirmPassword:'',
   };
   rulesCondition:boolean=false;
+  async login()
+  {
+    var data=await StorageService.login(this.person.password);
+    if(data)
+      window.location.href='/';
+    console.log('login------->',data)
+  }
 }
 </script>
 

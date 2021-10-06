@@ -9,4 +9,16 @@ export default class StorageService
     {
         return BaseLocalService.run(this.storageName,{action:'exist'});
     }
+    static isLogin()
+    {
+        return BaseLocalService.run(this.storageName,{action:'isLogin'});
+    }
+    static login(password:string)
+    {
+        return BaseLocalService.run(this.storageName,{action:'loadData',data:password});
+    }
+    static initData(password:string,data:string)
+    {
+        return BaseLocalService.run(this.storageName,{action:'init',data:{password,data}});
+    }
 }
