@@ -2,6 +2,7 @@ import { app, BrowserWindow, nativeTheme,ipcMain } from 'electron'
 
 const HighLevelSockets = require('../services/socket');
 const Storage = require('../services/storage');
+const Wallet = require('../services/wallet');
 try {
   if (process.platform === 'win32' && nativeTheme.shouldUseDarkColors === true) {
     require('fs').unlinkSync(require('path').join(app.getPath('userData'), 'DevTools Extensions'))
@@ -63,8 +64,11 @@ app.on('activate', () => {
     createWindow()
   }
 })
-
-var storage=new Storage();
+ 
+global.gclass={
+  wallet:new Wallet(),
+  storage:new Storage()
+}; 
 ipcMain.on('prompt-response', (_, {event,data,origin,id}) => {
   console.log('>>>>>>>>>>>>>>>>',event,data);
   HighLevelSockets.emit(origin,id,event,data)
@@ -74,12 +78,13 @@ ipcMain.on('transfer', (_, {data,name,id,globalId}) => {
 
 
   var resp={};
-  if(name=='storage')
+  var gclass=global.gclass[name];
+  if(gclass)
   {
     var action=data.action;
-    if(action)
+    if(action && gclass[action])
     {
-      resp= storage[action](data.data)
+      resp= gclass[action](data.data)
     }
   }
   console.log('>>>>>>>>>>>>>>>>',resp); 

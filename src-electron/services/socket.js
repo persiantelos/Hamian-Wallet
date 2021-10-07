@@ -37,8 +37,8 @@ const sendToEmbed = (payload) =>{
 	}
 	else if(payload.type=='pair')
 	{
-		//mainWindow.webContents.send('socketResponse', payload);
-  		HighLevelSockets.emit(payload.origin,payload.id,'paired',true)
+		//mainWindow.webContents.send('socketResponse', payload); 
+  		HighLevelSockets.emit(payload.origin,payload.id,'paired',global.gclass.storage.isLogin())
 	}
 } 
 
