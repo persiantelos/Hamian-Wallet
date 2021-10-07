@@ -1,12 +1,15 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <p style="color:red">index2</p>
-    <q-btn v-for="(item,index) in nets" :key="index" :label="item.name" @click="addNetwork(item)" />
+    <p style="color:red">index3</p> 
+    <div v-for="(item,index) in nets" :key="index"> 
+      <q-btn :label="item.name" @click="addNetwork(item)" />
+    </div>
     <q-dialog v-model="showNewAccount">
       <q-card>
         <div class="row">
           <div class="col-12">
             <q-input v-model="account.privateKey" />
+            <q-btn @click="checkNetwork"/>
           </div>
           <div class="col-12"></div>
         </div>
@@ -32,11 +35,12 @@ export default class IndexComponent extends Vue{
   showNewAccount:boolean=false;
   account:StorageAccountModel=new StorageAccountModel();
   mounted() {
-    
+    this.init()
   }
   async init()
   {
     this.nets = await CommonService.getNetworks();
+    console.log('///////////',this.nets)
   }
   addNetwork(model:NetworkModel)
   {
@@ -48,7 +52,7 @@ export default class IndexComponent extends Vue{
   }
   checkNetwork()
   {
-    WalletService.existData(this.account.chainId,this.account.privateKey,this.selectedNet.protocol+'://'+this.selectedNet.host)
+    WalletService.existData(this.selectedNet.type,this.account.privateKey,this.selectedNet.protocol+'://'+this.selectedNet.host)
   }
 }
 </script>
