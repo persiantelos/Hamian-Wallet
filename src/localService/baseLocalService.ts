@@ -4,7 +4,7 @@ export default class BaseLocalService
     static globalId:string='';
     static counter:number=0;
     static temp:any={};
-    static run(name:string,data:any)
+    static run(name:string,data:any):Promise<any>
     {
         
         return new Promise((res,rej)=>{

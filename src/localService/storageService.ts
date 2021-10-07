@@ -15,7 +15,7 @@ export default class StorageService
     }
     static login(password:string)
     {
-        return BaseLocalService.run(this.storageName,{action:'loadData',data:password});
+        return BaseLocalService.run(this.storageName,{action:'login',data:password});
     }
     static initData(password:string,data:string)
     {

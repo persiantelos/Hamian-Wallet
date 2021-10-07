@@ -39,10 +39,28 @@ module.exports = class Storage{
         }
         return true;
     }
-    async loadData(pass)
+    async login(pass)
     {
         
         password=pass;
+        const path = `${app.getPath('userData')}/data.json`;
+        var exist = fs.existsSync(path);
+        if(!exist) return false;
+        try{
+
+            var key=pbkdf2.pbkdf2Sync(password, 'salt', 1, 256 / 8, 'sha512');//this.stringToByteArray(password);
+            var text = fs.readFileSync(path,{encoding: 'utf8'})+'';
+            var textBytes = aesjs.utils.utf8.toBytes(text);
+            var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
+            var decryptedBytes = aesCtr.decrypt(textBytes);
+            var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+            return JSON.parse(decryptedText) ;
+
+        }catch(exp){}
+        return false
+    }
+    async loadData()
+    { 
         const path = `${app.getPath('userData')}/data.json`;
         var exist = fs.existsSync(path);
         if(!exist) return false;

@@ -5,5 +5,6 @@ export default class NetworkModel
     chainId:string; 
     host:string; 
     protocol:string; 
+    history:string; 
     port:number;  
 } 

@@ -13,9 +13,25 @@ module.exports = class Wallet{
             return data
         }
     }
-    createWallet(dt)
-    {
-        var key=dt.key;
-        var authority=dt.authority
+    async addAccount(dt)
+    { 
+        var data =await global.gclass.storage.loadData();
+        if(!data)return false;
+        if(!data.accounts)data.accounts=[];
+        var exist = data.accounts.filter(p=>p.authority==dt.authority && p.privateKey==dt.privateKey && p.name==dt.name)[0];
+        if(exist) return false;
+        data.accounts.push(dt);
+        await global.gclass.storage.saveData(data);
     } 
+    async getAccounts()
+    {
+        var data =await global.gclass.storage.loadData();
+        if(!data)return false;
+        if(!data.accounts)data.accounts=[];
+        for(var a of data.accounts)
+        {
+            a.privateKey="";
+        }
+        return data.accounts;
+    }
 }
