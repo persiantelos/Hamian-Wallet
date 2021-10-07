@@ -37,7 +37,7 @@
                 v-model="person.file" 
                 label="Upload your File" >
                 <template v-slot:append>
-                    <q-icon dark size="24px" name="cloud_upload"></q-icon>
+                    <q-icon @click="fileChanged()" class="cursor-pointer" dark size="24px" name="cloud_upload"></q-icon>
                 </template>
                 </q-file>
                 
@@ -76,7 +76,9 @@
 </template>
 
 <script lang="ts">
-import {Vue , Component} from "vue-property-decorator"
+import {Vue , Component , Watch} from "vue-property-decorator";
+import { Platform } from 'quasar'
+
 @Component({
     components:{
 
@@ -87,7 +89,48 @@ export default class Login extends Vue{
     password:'',
     file:[],
   };
+  jsonFile:any=[];
   rulesCondition:boolean=false;
+  @Watch('person.file')
+    fileChanged(){
+      this.getJSON(this.person.file.path);
+    }
+  getJSON(path) {
+    return new Promise((resolve, reject) => {
+      if (Platform.is.electron) {
+        let fs = require('fs')
+        fs.readFile(path, (error:any, data:any) => {
+          if (error) {
+            reject(error)
+          } else {
+            resolve(data)
+          }
+        })
+      } else {
+        let request = new XMLHttpRequest()
+
+        request.addEventListener('load', () => {
+          if (request.status >= 200 && request.status < 400) {
+            resolve(request.response)
+          } else {
+            reject(Error(request.statusText))
+          }
+        })
+
+        request.addEventListener('error', () => {
+          reject(Error("Network Error"))
+        })
+
+        request.open('GET', path, true)
+        request.send()
+      }
+    }).then((res:any)=>{
+      console.log(res.toString('utf8'))
+    }).catch(error => {
+      console.log('Failed to load JSON file', path, error)
+      throw error
+    })
+  }
 }
 </script>
 
@@ -148,9 +191,7 @@ export default class Login extends Vue{
         border-radius: 25px;
         padding: 5px;
       }
-      
     }
-    
   }
 }
 
