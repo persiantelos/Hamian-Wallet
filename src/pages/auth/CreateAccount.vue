@@ -6,7 +6,7 @@
       <div class="col-12 login-box ">
           <!-- title -->
         <div class=" center">
-          <img class="icon" src="../../assets/picture/Shape.svg" />
+          <img class="icon" src="../../assets/picture/hamian.svg" />
           <h1 class="title">Hamian</h1>
         </div>
         <!-- login Box -->
@@ -60,9 +60,9 @@
               <q-btn class="register-btn full-width"   label="Register" @click="createAccount" />
             </div>
             <!-- sign in  -->
-            <div class="col-12 center">
+            <!-- <div class="col-12 center">
               <p class="text-gray q-pa-none ">Allready have an account? <router-link class="router-link" :to="{name:'Login'}">Sign in</router-link> </p>
-            </div>
+            </div> -->
             <div class="col-12 center">
                <router-link class="router-link text-gray q-pa-none" :to="{name:'loginwithfile'}">Try another way to Create account</router-link>
             </div>

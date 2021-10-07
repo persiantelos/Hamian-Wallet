@@ -6,7 +6,7 @@
       <div class="col-12 login-box ">
           <!-- title -->
         <div class=" center">
-          <img class="icon" src="../../assets/picture/Shape.svg" />
+          <img class="icon" src="../../assets/picture/hamian.svg" />
           <h1 class="title">Hamian</h1>
         </div>
         <!-- login Box -->
@@ -66,7 +66,7 @@
             </div>
             <!-- login  -->
             <div class="col-12 center">
-              <p class="text-gray q-pa-none ">You don't Have an accout? <router-link class="router-link" :to="{name:'CreateAccount'}">Register</router-link> </p>
+              <router-link class="router-link text-gray q-pa-none" :to="{name:'CreateAccount'}">Try another way to Create account</router-link>
             </div>
           </div>
         </div>
