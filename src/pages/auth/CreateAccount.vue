@@ -57,15 +57,15 @@
             </div>
             <!-- register -->
             <div class="center col-12 q-pa-md q-pl-md q-pr-md">
-              <q-btn class="register-btn full-width"   label="Register" @click="createAccount" />
+              <q-btn class="register-btn full-width"   label="Login" @click="createAccount" />
             </div>
             <!-- sign in  -->
             <!-- <div class="col-12 center">
               <p class="text-gray q-pa-none ">Allready have an account? <router-link class="router-link" :to="{name:'Login'}">Sign in</router-link> </p>
             </div> -->
-            <div class="col-12 center">
+            <!-- <div class="col-12 center">
                <router-link class="router-link text-gray q-pa-none" :to="{name:'loginwithfile'}">Try another way to Create account</router-link>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
