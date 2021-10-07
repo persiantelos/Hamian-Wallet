@@ -6,7 +6,7 @@
       <div class="col-12 login-box ">
           <!-- title -->
         <div class=" center q-mb-lg">
-          <img class="icon" src="../../assets/picture/Shape.svg" />
+          <img class="icon" src="../../assets/picture/hamian.svg" />
           <h1 class="title">Hamian</h1>
         </div>
         <!-- login Box -->
@@ -114,9 +114,7 @@ export default class Login extends Vue{
         border-radius: 25px;
         padding: 5px;
       }
-      .text-gray{
-        color:#8F92A1;
-      }
+      
     }
   }
 }

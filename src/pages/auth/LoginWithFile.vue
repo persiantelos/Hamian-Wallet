@@ -148,9 +148,7 @@ export default class Login extends Vue{
         border-radius: 25px;
         padding: 5px;
       }
-      .text-gray{
-        color:#8F92A1;
-      }
+      
     }
     
   }

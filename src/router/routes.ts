@@ -14,7 +14,7 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/Authentication.vue'),
     children: [
       { path: '', component: () => import('pages/auth/Login.vue'),name:'Login',meta:{isPublic:true} },
-      { path: 'local', component: () => import('pages/auth/LocalLogin.vue') },
+      { path: 'local', component: () => import('pages/auth/LocalLogin.vue'),name:'LocalLogin' },
     ],
   },
   {

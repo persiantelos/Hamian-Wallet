@@ -63,9 +63,9 @@
             <!-- <div class="col-12 center">
               <p class="text-gray q-pa-none ">Allready have an account? <router-link class="router-link" :to="{name:'Login'}">Sign in</router-link> </p>
             </div> -->
-            <!-- <div class="col-12 center">
+            <div class="col-12 center">
                <router-link class="router-link text-gray q-pa-none" :to="{name:'loginwithfile'}">Try another way to Create account</router-link>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>
@@ -151,9 +151,6 @@ export default class Login extends Vue{
         font-weight: 300;
         border-radius: 25px;
         padding: 5px;
-      }
-      .text-gray{
-        color:#8F92A1;
       }
       .register-google-btn{
         background-color: #242424;

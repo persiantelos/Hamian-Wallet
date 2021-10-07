@@ -7,6 +7,8 @@
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
+        <router-link :to="{name:'LocalLogin'}">local login</router-link><br/>
+        <router-link :to="{name:'Login'}">login</router-link>
     </q-header>
 
     <q-page-container>
