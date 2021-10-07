@@ -1,3 +1,5 @@
+
+var request = require('request');
 module.exports =class Rest
 {
     static post(url,body)
@@ -12,6 +14,8 @@ module.exports =class Rest
             };
               
             request.post(options, (error, response, body) =>{
+                console.log(error)
+                console.log(body)
                 if(error)
                 {
                     rej(error);

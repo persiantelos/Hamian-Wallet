@@ -16,17 +16,17 @@ module.exports = class Storage{
         }
         return result;
     }
-    exist()
+    async exist()
     {
         const path = `${app.getPath('userData')}/data.json`;
         var exist = fs.existsSync(path);
         return exist;
     }
-    isLogin()
+    async isLogin()
     {
         return !!password;
     }
-    init(dt)
+    async init(dt)
     {
         password=dt.password;
         if(dt.data)
@@ -39,7 +39,7 @@ module.exports = class Storage{
         }
         return true;
     }
-    loadData(pass)
+    async loadData(pass)
     {
         
         password=pass;
@@ -59,7 +59,7 @@ module.exports = class Storage{
         }catch(exp){}
         return false
     }
-    saveData(data)
+    async saveData(data)
     {
         var text=JSON.stringify(data);
         var textBytes = aesjs.utils.utf8.toBytes(text);

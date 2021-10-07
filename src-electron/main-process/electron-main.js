@@ -73,9 +73,8 @@ ipcMain.on('prompt-response', (_, {event,data,origin,id}) => {
   console.log('>>>>>>>>>>>>>>>>',event,data);
   HighLevelSockets.emit(origin,id,event,data)
 });
-ipcMain.on('transfer', (_, {data,name,id,globalId}) => {
+ipcMain.on('transfer',async (_, {data,name,id,globalId}) => {
   console.log('>>>>>>>>>>>>>>>>',data,name,id,globalId); 
-
 
   var resp={};
   var gclass=global.gclass[name];
@@ -84,7 +83,7 @@ ipcMain.on('transfer', (_, {data,name,id,globalId}) => {
     var action=data.action;
     if(action && gclass[action])
     {
-      resp= gclass[action](data.data)
+      resp=await gclass[action](data.data)
     }
   }
   console.log('>>>>>>>>>>>>>>>>',resp); 

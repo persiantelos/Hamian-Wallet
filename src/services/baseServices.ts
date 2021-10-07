@@ -24,4 +24,15 @@ export default class BaseServices
        var dt = await axios.post(path,data,{headers}); 
        return dt.data;
     }
+    static async getData(url:string,data:any)
+    {
+       var path=url;
+       var headers:any={};
+       if(window.localStorage.token)
+       {
+           headers['authorization']=window.localStorage.token
+       }
+       var dt = await axios.get(path ); 
+       return dt.data;
+    }
 }
