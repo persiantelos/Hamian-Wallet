@@ -13,7 +13,7 @@ import StorageService from 'src/localService/storageService'
 })
 export default class APP extends Vue{ 
    mounted() { 
-     console.log('>>>>>>>>>>>>>')
+    //  console.log('>>>>>>>>>>>>>')
     // this.init();  
    } 
 }

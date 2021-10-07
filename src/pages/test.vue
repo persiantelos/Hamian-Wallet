@@ -16,9 +16,10 @@
             <q-btn @click="checkNetwork"/>
           </div>
           <div class="row" v-if="findAccounts.length">
-              <div class="col-12" v-for="(name,nameIndex) in findAccounts" :key="'name'+nameIndex">
-                  <q-radio v-model="selectName" :val="name" :label="name" />
-              </div>
+              <div class="col-12" v-for="(acc,nameIndex) in findAccounts" :key="'name'+nameIndex">
+                  <q-radio v-model="selectName" :val="acc" :label="acc.name+'('+acc.authority+')'" />
+              </div> 
+              <q-btn v-if="selectName" label="Save" @click="save" />
               {{selectName}}
           </div>
           <div class="col-12"></div>
@@ -34,6 +35,7 @@ import CommonService from 'src/services/commonService'
 import WalletService from 'src/localService/walletService'
 import NetworkModel from 'src/models/networkModel';
 import StorageAccountModel from 'src/models/storage/accountModel'; 
+import AccountService from 'src/services/accountService';
 @Component({ 
   components:{
   }
@@ -44,15 +46,15 @@ export default class Test extends Vue{
   selectedNet:NetworkModel;
   showNewAccount:boolean=false;
   account:StorageAccountModel=new StorageAccountModel();
-  findAccounts:string[]=[];
-  selectName:string="";
+  findAccounts:StorageAccountModel[]=[];
+  selectName:StorageAccountModel=new StorageAccountModel();
   mounted() {
     this.init()
   }
   async init()
   {
     this.nets = await CommonService.getNetworks();
-    console.log('///////////',this.nets)
+    this.reload()
   }
   async reload()
   {
@@ -71,9 +73,25 @@ export default class Test extends Vue{
     var dt =await WalletService.existData(this.selectedNet.type,this.account.privateKey,this.selectedNet.history)
     if(dt.account_names)
     {
-        this.findAccounts=dt.account_names;
+        for(var a of dt.account_names)
+        {
+            var acc=await AccountService.getAccount(a,this.selectedNet.history);
+            var x=new StorageAccountModel();
+            x.name=a;
+            x.authority=acc.permissions.filter(p=>p.key==dt.publicKey)[0].authority
+            this.findAccounts.push(x)// =;
+        }
     }
     console.log(dt)
+  }
+  async save()
+  {
+      this.account.name=this.selectName.name;
+      this.account.authority=this.selectName.authority; 
+      console.log('dddddddd',this.account)
+      var dt =await WalletService.addAccount(this.account);
+      console.log('dddddddd',dt)
+      this.reload()
   }
 }
 </script>

@@ -9,7 +9,7 @@ const {BrowserWindow} =require('electron')
 let mainWindow;
 const sendToEmbed = (payload) =>{
 	//
-			console.log('>>>>>>>>>>>>>>>',payload)
+			// console.log('>>>>>>>>>>>>>>>',payload)
 	if(payload.type=='api')
 	{
 		if(payload.request.data && payload.request.data.type=='identityFromPermissions')

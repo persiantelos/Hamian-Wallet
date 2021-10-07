@@ -49,14 +49,20 @@ module.exports = class Storage{
         try{
 
             var key=pbkdf2.pbkdf2Sync(password, 'salt', 1, 256 / 8, 'sha512');//this.stringToByteArray(password);
-            var text = fs.readFileSync(path,{encoding: 'utf8'})+'';
-            var textBytes = aesjs.utils.utf8.toBytes(text);
+            var text = fs.readFileSync(path,{encoding: 'utf8'})+''; 
+            console.log('///////////',text)
+            var encryptedBytes = aesjs.utils.hex.toBytes(text); 
+            var textBytes = aesjs.utils.utf8.toBytes(encryptedBytes);
             var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
             var decryptedBytes = aesCtr.decrypt(textBytes);
             var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
+            console.log('///////////',decryptedText)
             return JSON.parse(decryptedText) ;
 
-        }catch(exp){}
+        }catch(exp){
+
+            //  fs.unlinkSync(path)
+        }
         return false
     }
     async loadData()
@@ -65,10 +71,10 @@ module.exports = class Storage{
         var exist = fs.existsSync(path);
         if(!exist) return false;
         try{
-
             var key=pbkdf2.pbkdf2Sync(password, 'salt', 1, 256 / 8, 'sha512');//this.stringToByteArray(password);
-            var text = fs.readFileSync(path,{encoding: 'utf8'})+'';
-            var textBytes = aesjs.utils.utf8.toBytes(text);
+            var text = fs.readFileSync(path,{encoding: 'utf8'})+''; 
+            var encryptedBytes = aesjs.utils.hex.toBytes(text); 
+            var textBytes = aesjs.utils.utf8.toBytes(encryptedBytes);
             var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
             var decryptedBytes = aesCtr.decrypt(textBytes);
             var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
@@ -84,8 +90,11 @@ module.exports = class Storage{
         var key=pbkdf2.pbkdf2Sync(password, 'salt', 1, 256 / 8, 'sha512');//this.stringToByteArray(password);
         var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
         var encryptedBytes = aesCtr.encrypt(textBytes);
+        var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
         const path = `${app.getPath('userData')}/data.json`;
-        fs.writeFileSync(path,encryptedBytes)
+        console.log(')))))))))',encryptedHex);
+
+        fs.writeFileSync(path,encryptedHex)
 
     }   
     

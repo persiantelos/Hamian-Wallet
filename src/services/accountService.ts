@@ -9,9 +9,9 @@ export default class AccountService
     {
         return BaseServices.post(Config.chainAddress+'wallet/tokens',{account,chain})
     }
-    static async getAccount(account:string):Promise<Account>
+    static async getAccount(account:string,url:string=Config.chainAddress):Promise<Account>
     {
-        var acc=await BaseServices.post(Config.chainAddress+'get_account',{account_name:account});
+        var acc=await BaseServices.postData(url+'/v1/chain/get_account',{account_name:account});
         return new Account(acc);
     }
 }

@@ -14,6 +14,6 @@ export default class WalletService
     }
     static getAccounts():Promise<StorageAccountModel[]>
     {
-        return BaseLocalService.run(this.walletName,{action:'addAccount',data:{}});
+        return BaseLocalService.run(this.walletName,{action:'getAccounts',data:{}});
     }
 }

@@ -40,8 +40,7 @@ function createWindow () {
   })
   HighLevelSockets.setMainWindow(mainWindow);
   HighLevelSockets.initialize() 
-  var address=process.env.APP_URL+'?globalid=main';
-  console.log('>>>>>>>>>>>>>>',address)
+  var address=process.env.APP_URL+'?globalid=main'; 
   mainWindow.loadURL(address)
   global.windows['main']=mainWindow;
   mainWindow.on('closed', () => {
@@ -69,12 +68,10 @@ global.gclass={
   wallet:new Wallet(),
   storage:new Storage()
 }; 
-ipcMain.on('prompt-response', (_, {event,data,origin,id}) => {
-  console.log('>>>>>>>>>>>>>>>>',event,data);
+ipcMain.on('prompt-response', (_, {event,data,origin,id}) => { 
   HighLevelSockets.emit(origin,id,event,data)
 });
-ipcMain.on('transfer',async (_, {data,name,id,globalId}) => {
-  console.log('>>>>>>>>>>>>>>>>',data,name,id,globalId); 
+ipcMain.on('transfer',async (_, {data,name,id,globalId}) => { 
 
   var resp={};
   var gclass=global.gclass[name];
@@ -86,7 +83,7 @@ ipcMain.on('transfer',async (_, {data,name,id,globalId}) => {
       resp=await gclass[action](data.data)
     }
   }
-  console.log('>>>>>>>>>>>>>>>>',globalId); 
+  console.log('>>>>>>>>>>>>>>>>',globalId);   
   if(global.windows[globalId])
   {
     global.windows[globalId].webContents.send('transfer', {id,data:resp}); 

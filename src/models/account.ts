@@ -12,6 +12,15 @@ export default class Account{
         this.total_cpu=data.total_resources.cpu_weight;
         this.total_net=data.total_resources.net_weight;
         this.total_ram=data.total_resources.ram_bytes;
+        for(var a of data.permissions)
+        {
+            var parent=a.parent;
+            var authority=a.perm_name;
+            for(var key of a.required_auth.keys)
+            {
+                this.permissions.push(new Permission({parent,authority,key:key.key}))
+            }
+        }
     }
     account_name:string;
     core_liquid_balance:string;
@@ -35,4 +44,16 @@ export default class Account{
     head_block_num:number;
     head_block_time:string;
     last_code_update:string;
+    permissions:Permission[]=[];
 }
+
+export class Permission
+{
+    constructor(data:any)
+    {
+        Object.assign(this,data);
+    }
+    key:string;
+    authority:string;
+    parent:string;
+} 
