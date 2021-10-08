@@ -54,7 +54,6 @@ import CommonService from 'src/services/commonService';
 
     },
     preFetch:(option:any)=>{
-     
       return option.store.dispatch('getBlockChains',CommonService.getNetworks());
     },
 })
@@ -74,7 +73,6 @@ export default class Login extends Vue{
       console.log('login------->',data)
     }
     // if login = true
-    
     // console.log(this.self.$store.getters.getBlockChains.blockChains)
     // await CommonService.getNetworks().then((res:any) => {
     //   // localStorage.setItem('blockChainList',JSON.stringify(res))
