@@ -67,15 +67,15 @@ export default class Login extends Vue{
 
   async login()
   {
-    // var data=await StorageService.login(this.person.password);
-    // if(data)
-    // {
-    //   window.location.href='/';
-    //   console.log('login------->',data)
-    // }
+    var data=await StorageService.login(this.person.password);
+    if(data)
+    {
+      window.location.href='/';
+      console.log('login------->',data)
+    }
     // if login = true
     
-    console.log(this.self.$store.getters.getBlockChains.blockChains)
+    // console.log(this.self.$store.getters.getBlockChains.blockChains)
     // await CommonService.getNetworks().then((res:any) => {
     //   // localStorage.setItem('blockChainList',JSON.stringify(res))
     //   console.log(res)
