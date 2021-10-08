@@ -60,6 +60,16 @@
             <router-link :to="{name:'home'}">Home</router-link><br/>
           </div>
         </q-item-label>
+        <q-separator />
+        <!-- <q-item clickable v-ripple>
+          <q-item-section avatar>
+            <q-icon name="drafts" />
+          </q-item-section>
+
+          <q-item-section>
+            Drafts
+          </q-item-section>
+        </q-item> -->
  
       </q-list>
     </q-drawer>
@@ -84,9 +94,13 @@ import LoginRequest from 'src/models/local/loginRequest'
 export default class MainLayout extends Vue{
   leftDrawerOpen:boolean=false; 
   eventid:string="";
+  blockChainList:any=[];
   toggleLeftDrawer()
   {
     this.leftDrawerOpen=!this.leftDrawerOpen 
+  }
+  monthed(){
+    this.blockChainList = localStorage.getItem('blockChainList')
   }
 }
 </script>
