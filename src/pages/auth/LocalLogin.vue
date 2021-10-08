@@ -1,5 +1,6 @@
 <template>
     <div class="col-12 login-body">
+      <div style="display:none">{{counter}}</div>
       <div class="center col-12">
         <!-- background -->
         <q-img src="../../assets/picture/login-bg.png"/>
@@ -14,12 +15,14 @@
             <div class="card q-pa-xs q-pt-lg q-pb-lg col-12">
               <p class="card-title">Login</p>
               <p class="card-sub-title">via  <a v-if="data" class="external-link" href="">{{data.origin}}</a> </p>
+
+              {{account}}
               <q-form class="q-pl-md q-pr-md q-pb-md q-pt-md q-pt-sm col-12">
-                  <q-btn-dropdown outline color="grey-13" :label="selectedAccount">
+                  <q-btn-dropdown outline color="grey-13" :label="selectedAccount.name">
                     <q-list v-if="account">
                       <q-item v-for="(userAccount , index) in account" :key="index" clickable v-close-popup >
                         <q-item-section>
-                          <q-item-label>{{userAccount.account_name}}</q-item-label>
+                          <q-item-label>{{userAccount.name}}</q-item-label>
                         </q-item-section>
                       </q-item>
                     </q-list>
@@ -75,36 +78,42 @@ import AddNetworkRequest from "src/models/local/addNetworkRequest";
 import LoginResponse from "src/models/local/loginResponse";
 import StorageAccountModel from "src/models/storage/accountModel";
 import Confirm from 'src/components/common/Confirm.vue'
+import WalletService from "src/localService/walletService";
 @Component({
     components:{
       Confirm
     }
 })
 export default class LocalLogin extends Vue{
-  data:LoginRequest=new LoginRequest({});
-  selectedAccount:StorageAccountModel;
+  data:LoginRequest=new LoginRequest();
+  selectedAccount:StorageAccountModel=new StorageAccountModel();
   account:StorageAccountModel[]=[];
   showConfirm:boolean=false;
-  reciveLoginRequest(data:any)
+  counter:number=0;
+  async reciveLoginRequest(data:any)
   {
+    console.log('----------------->>>>>>>>',data)
       this.data=new LoginRequest(data);
+      console.log('>>>>>>>>',this.data.chainId,await WalletService.getAccounts())
+      this.account=(await WalletService.getAccounts()).filter(p=>p.chainId==this.data.chainId);
+      this.counter++;
 
   }
-  recivedAddNetwork(data:any)
-  {
-      var req=new AddNetworkRequest(data);
-      //chek if chain exist and exist account
-      SocketService.sendData(req,{id:req.id,result:true})
-  }
-  recivedIdentity(data:any)
-  { 
-    var pr=new PermissionsRequest(data);
-    SocketService.sendData(pr,{id:pr.id,result:null})
-  }
+  // recivedAddNetwork(data:any)
+  // {
+  //     var req=new AddNetworkRequest(data);
+  //     //chek if chain exist and exist account
+  //     SocketService.sendData(req,{id:req.id,result:true})
+  // }
+  // recivedIdentity(data:any)
+  // { 
+  //   var pr=new PermissionsRequest(data);
+  //   SocketService.sendData(pr,{id:pr.id,result:null})
+  // }
   mounted() {
-    SocketService.addEvent(RequestTypes.identityFromPermissions,this.recivedIdentity); 
-    SocketService.addEvent(RequestTypes.requestAddNetwork,this.recivedAddNetwork); 
-    SocketService.addEvent(RequestTypes.getOrRequestIdentity,this.recivedAddNetwork); 
+    // SocketService.addEvent(RequestTypes.identityFromPermissions,this.recivedIdentity); 
+    // SocketService.addEvent(RequestTypes.requestAddNetwork,this.recivedAddNetwork); 
+    SocketService.addEvent(RequestTypes.getOrRequestIdentity,this.reciveLoginRequest); 
   }
   accept()
   {

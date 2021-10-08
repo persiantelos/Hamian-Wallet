@@ -41,21 +41,17 @@ module.exports = class Storage{
     }
     async login(pass)
     {
-        
         password=pass;
         const path = `${app.getPath('userData')}/data.json`;
         var exist = fs.existsSync(path);
         if(!exist) return false;
         try{
-
             var key=pbkdf2.pbkdf2Sync(password, 'salt', 1, 256 / 8, 'sha512');//this.stringToByteArray(password);
-            var text = fs.readFileSync(path,{encoding: 'utf8'})+''; 
-            console.log('///////////',text)
+            var text = fs.readFileSync(path,{encoding: 'utf8'})+'';  
             var encryptedBytes = aesjs.utils.hex.toBytes(text);  
             var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
             var decryptedBytes = aesCtr.decrypt(encryptedBytes);
-            var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
-            console.log('///////////',decryptedText)
+            var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes); 
             return JSON.parse(decryptedText) ;
 
         }catch(exp){
@@ -89,9 +85,7 @@ module.exports = class Storage{
         var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
         var encryptedBytes = aesCtr.encrypt(textBytes);
         var encryptedHex = aesjs.utils.hex.fromBytes(encryptedBytes);
-        const path = `${app.getPath('userData')}/data.json`;
-        console.log(')))))))))',encryptedHex);
-
+        const path = `${app.getPath('userData')}/data.json`; 
         fs.writeFileSync(path,encryptedHex)
 
     }   

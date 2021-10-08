@@ -22,7 +22,7 @@ export default route(function ({ Vue }) {
     base: process.env.VUE_ROUTER_BASE
   });
  
-  Router.beforeEach(async(to, from, next) => { 
+  Router.beforeEach(async(to, from, next) => {  
     if(!to.meta?.isPublic)
     {
       
@@ -40,7 +40,6 @@ export default route(function ({ Vue }) {
         }
 
       }
-        console.log('-------------------',BaseLocalService.globalId)
       var dt =await  StorageService.existData()
       if(!dt)
       {

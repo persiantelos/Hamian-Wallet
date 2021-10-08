@@ -23,15 +23,18 @@ export default class SocketService
 		}
 	}
 	static emit(name:string,data:any)
-	{
+	{ 
 		for(var a in this.eventTemp[name])
 		{
 			var func=this.eventTemp[name][a];
 			if(func)
 			{
-				try{
+				try{ 
 					func(data);
-				}catch(exp){}
+				}catch(exp){
+					console.log('gg',exp);
+					
+				}
 			}
 		}
 	}
