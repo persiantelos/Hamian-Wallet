@@ -47,24 +47,42 @@
 
 <script lang="ts">
 import StorageService from "src/localService/storageService";
-import {Vue , Component} from "vue-property-decorator"
+import {Vue , Component} from "vue-property-decorator";
+import CommonService from 'src/services/commonService';
 @Component({
     components:{
 
-    }
+    },
+    preFetch:(option:any)=>{
+     
+      return option.store.dispatch('getBlockChains',CommonService.getNetworks());
+    },
 })
 export default class Login extends Vue{
   person={
     password:'',
   };
+  self:any=this;
   rulesCondition:boolean=false;
+
   async login()
   {
-    var data=await StorageService.login(this.person.password);
-    console.log(data)
-    if(data)
-      window.location.href='/';
-      console.log('login------->',data)
+    // var data=await StorageService.login(this.person.password);
+    // if(data)
+    // {
+    //   window.location.href='/';
+    //   console.log('login------->',data)
+    // }
+    // if login = true
+    
+    console.log(this.self.$store.getters.getBlockChains.blockChains)
+    // await CommonService.getNetworks().then((res:any) => {
+    //   // localStorage.setItem('blockChainList',JSON.stringify(res))
+    //   console.log(res)
+    //   this.self.$store.dispatch('getBlockChain',res)
+    // }).catch(error => {
+    //   console.log(error);
+    // });
   }
 }
 </script>
