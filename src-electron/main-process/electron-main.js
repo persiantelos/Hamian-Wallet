@@ -78,12 +78,16 @@ ipcMain.on('transfer',async (_, {data,name,id,globalId}) => {
   if(gclass)
   {
     var action=data.action;
+    
+    console.log('>>>>>>>>>>>>>>>>',action);  
     if(action && gclass[action])
     {
       resp=await gclass[action](data.data)
     }
   }
-  console.log('>>>>>>>>>>>>>>>>',globalId);   
+  console.log('-',globalId);   
+  console.log('-',resp);   
+  
   if(global.windows[globalId])
   {
     global.windows[globalId].webContents.send('transfer', {id,data:resp}); 

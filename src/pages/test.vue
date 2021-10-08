@@ -1,10 +1,10 @@
 <template>
   <div > 
-      <div class="row">
-          <div class="col-12" v-for="(acc,accIndex) in myAccounts" :key="'acc'+accIndex">
-              {{acc.name}}({{acc.authority}}) <q-btn round />
-          </div>
-      </div>
+    <div class="row">
+        <div class="col-12" v-for="(acc,accIndex) in myAccounts" :key="'acc'+accIndex">
+            {{acc.name}}({{acc.authority}}) <q-btn round size="sm" icon="edit" />
+        </div>
+    </div>
     <div v-for="(item,index) in nets" :key="index"> 
         <q-btn :label="item.name" @click="addNetwork(item)" />
     </div>
@@ -26,6 +26,8 @@
         </div>
       </q-card>
     </q-dialog>
+
+    
   </div>
 </template>
 

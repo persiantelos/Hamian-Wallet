@@ -2,6 +2,7 @@ export default class BaseRequest
 {
     constructor(data:any)
     {
+        if(!data)return;
         this.appkey = data.appkey;
         this.id = data.id;
         this.nextNonce = data.nextNonce;

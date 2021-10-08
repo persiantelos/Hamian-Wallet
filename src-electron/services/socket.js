@@ -7,14 +7,21 @@ const net = require('net');
 const fs=require('fs')
 const {BrowserWindow} =require('electron')
 let mainWindow;
-const sendToEmbed = (payload) =>{
+const sendToEmbed = async(payload) =>{
 	//
 			// console.log('>>>>>>>>>>>>>>>',payload)
 	if(payload.type=='api')
 	{
-		if(payload.request.data && payload.request.data.type=='identityFromPermissions')
+		if(payload.request.data && payload.request.data.type=='identityFromPermissions'){
+			var id=payload.request.data.id;
+			HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:null})
+		}
+		if(payload.request.data && payload.request.data.type=='requestAddNetwork'){
+			var id=payload.request.data.id;
+			HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:true})
+		}
+		if(payload.request.data && payload.request.data.type=='getOrRequestIdentity')
 		{
-
 
 			var wind = new BrowserWindow({
 				width: 500,
@@ -25,7 +32,13 @@ const sendToEmbed = (payload) =>{
 				  nodeIntegrationInWorker: process.env.QUASAR_NODE_INTEGRATION, 
 				}
 			  }) 
-			  wind.loadURL(process.env.APP_URL+'/#/login/local')
+			  var id=Math.random().toString();
+			  global.windows[id]=wind;
+			  console.log('id: ',id)
+			  	wind.on('closed', () => { 
+					delete global.windows[id];
+				})
+			  wind.loadURL(process.env.APP_URL+'?globalid='+id+'#/login/local')
 			  setTimeout(()=>{
 				  wind.webContents.send('socketResponse', payload);
 
@@ -38,7 +51,7 @@ const sendToEmbed = (payload) =>{
 	else if(payload.type=='pair')
 	{
 		//mainWindow.webContents.send('socketResponse', payload); 
-  		HighLevelSockets.emit(payload.origin,payload.id,'paired',global.gclass.storage.isLogin())
+  		HighLevelSockets.emit(payload.origin,payload.id,'paired',await global.gclass.storage.isLogin())
 	}
 } 
 
