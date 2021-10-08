@@ -56,15 +56,15 @@ import {Vue , Component} from "vue-property-decorator"
 export default class Login extends Vue{
   person={
     password:'',
-    confirmPassword:'',
   };
   rulesCondition:boolean=false;
   async login()
   {
     var data=await StorageService.login(this.person.password);
+    console.log(data)
     if(data)
       window.location.href='/';
-    console.log('login------->',data)
+      console.log('login------->',data)
   }
 }
 </script>
