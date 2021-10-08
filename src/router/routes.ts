@@ -5,7 +5,7 @@ const routes: RouteConfig[] = [
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue'),name:'home' },
+      { path: '', component: () => import('pages/Index.vue'),name:'home'},
       // { path: 'modelpage/:name/:scope', component: () => import('pages/admin/modelPage.vue') },
     ],
   },

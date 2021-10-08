@@ -44,7 +44,7 @@
       bordered
       dark 
     >
-      <q-list>
+      <q-list class="bg-grey-10">
         <q-item-label 
           header class=" q-pt-none q-mt-sm"
         >
@@ -60,16 +60,23 @@
             <router-link :to="{name:'home'}">Home</router-link><br/>
           </div>
         </q-item-label>
-        <q-separator />
-        <!-- <q-item clickable v-ripple>
-          <q-item-section avatar>
-            <q-icon name="drafts" />
-          </q-item-section>
+        <q-separator class="q-pt-xs" />
 
-          <q-item-section>
-            Drafts
-          </q-item-section>
-        </q-item> -->
+       <q-list dark padding   >
+        <q-expansion-item
+          icon="grid_view"
+          label="Blockchains"
+        >
+        <q-card dark>
+          <q-card-section class="q-pa-none " v-for="(blocks , index) in $store.getters.getBlockChains.blockChains" :key="index">
+            <q-item class="cursor-pointer q-pl-md bg-grey-10 block">
+                <p class="q-pl-sm q-pa-none">{{blocks.name}}<br/> {{blocks.type}}</p>
+              </q-item>            
+          </q-card-section>
+        </q-card>
+      </q-expansion-item>
+
+      </q-list>
  
       </q-list>
     </q-drawer>
@@ -94,14 +101,12 @@ import LoginRequest from 'src/models/local/loginRequest'
 export default class MainLayout extends Vue{
   leftDrawerOpen:boolean=false; 
   eventid:string="";
-  blockChainList:any=[];
+  self:any=this;
   toggleLeftDrawer()
   {
     this.leftDrawerOpen=!this.leftDrawerOpen 
   }
-  monthed(){
-    this.blockChainList = localStorage.getItem('blockChainList')
-  }
+  
 }
 </script>
 <style lang="scss" scoped>

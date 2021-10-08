@@ -17,6 +17,7 @@
             <q-form class="q-pl-md q-pr-md q-pt-sm">
                 <!-- password -->
                 <q-input 
+                type="password"
                 dark
                 class="q-ma-xs q-mt-sm input-border"  
                 style="border: 1px solid white" 
