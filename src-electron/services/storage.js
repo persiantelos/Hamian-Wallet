@@ -51,10 +51,9 @@ module.exports = class Storage{
             var key=pbkdf2.pbkdf2Sync(password, 'salt', 1, 256 / 8, 'sha512');//this.stringToByteArray(password);
             var text = fs.readFileSync(path,{encoding: 'utf8'})+''; 
             console.log('///////////',text)
-            var encryptedBytes = aesjs.utils.hex.toBytes(text); 
-            var textBytes = aesjs.utils.utf8.toBytes(encryptedBytes);
+            var encryptedBytes = aesjs.utils.hex.toBytes(text);  
             var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
-            var decryptedBytes = aesCtr.decrypt(textBytes);
+            var decryptedBytes = aesCtr.decrypt(encryptedBytes);
             var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
             console.log('///////////',decryptedText)
             return JSON.parse(decryptedText) ;
@@ -73,10 +72,9 @@ module.exports = class Storage{
         try{
             var key=pbkdf2.pbkdf2Sync(password, 'salt', 1, 256 / 8, 'sha512');//this.stringToByteArray(password);
             var text = fs.readFileSync(path,{encoding: 'utf8'})+''; 
-            var encryptedBytes = aesjs.utils.hex.toBytes(text); 
-            var textBytes = aesjs.utils.utf8.toBytes(encryptedBytes);
+            var encryptedBytes = aesjs.utils.hex.toBytes(text);  
             var aesCtr = new aesjs.ModeOfOperation.ctr(key, new aesjs.Counter(5));
-            var decryptedBytes = aesCtr.decrypt(textBytes);
+            var decryptedBytes = aesCtr.decrypt(encryptedBytes);
             var decryptedText = aesjs.utils.utf8.fromBytes(decryptedBytes);
             return JSON.parse(decryptedText) ;
 
