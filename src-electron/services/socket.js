@@ -24,7 +24,7 @@ const sendToEmbed = async(payload) =>{
 		{
 
 			var wind = new BrowserWindow({
-				width: 500,
+				width: 500, 
 				height: 700,
 				useContentSize: true,
 				webPreferences: { 
@@ -40,6 +40,7 @@ const sendToEmbed = async(payload) =>{
 				})
 			  wind.loadURL(process.env.APP_URL+'?globalid='+id+'#/login/local')
 			  setTimeout(()=>{
+
 				  wind.webContents.send('socketResponse', payload);
 
 			  },1000)
@@ -74,6 +75,9 @@ class LowLevelSocketService {
 
 	async emit(origin, id, path, data){
 		const socket = this.openConnections[origin+id];
+		console.log('-----------------------');
+		console.log(origin+id);
+		console.log(Object.keys(this.openConnections) );
 		return this.emitSocket(socket, path, data);
 	}
 
@@ -125,7 +129,7 @@ class LowLevelSocketService {
 
 				if(!this.openConnections.hasOwnProperty(origin+id)) this.openConnections[origin+id] = socket;
 
-				// console.log('------->>>>>>>>',origin)
+				console.log('------->>>>>>>>',origin+id);
 				switch(type){
 					case 'pair':        return sendToEmbed({type:'pair', request, id,origin});
 					case 'rekeyed':     return this.rekeyPromise.resolve(request);

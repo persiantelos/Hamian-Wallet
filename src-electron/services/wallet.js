@@ -17,8 +17,7 @@ module.exports = class Wallet{
     async addAccount(dt)
     { 
         dt.publicKey =ecc.PrivateKey(dt.privateKey).toPublic().toString('EOS')
-        var data =await global.gclass.storage.loadData();
-        console.log('---->>>>>>>>>>>>>',data)
+        var data =await global.gclass.storage.loadData(); 
         if(!data)return false;
         if(!data.accounts)data.accounts=[];
         var exist = data.accounts.filter(p=>p.authority==dt.authority && p.privateKey==dt.privateKey && p.name==dt.name)[0];
@@ -35,8 +34,7 @@ module.exports = class Wallet{
         for(var a of data.accounts)
         {
             a.privateKey="";
-        }
-        console.log('ssssssssss',data)
+        } 
         return data.accounts;
     }
 }

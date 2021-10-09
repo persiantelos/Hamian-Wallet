@@ -15,13 +15,12 @@
             <div class="card q-pa-xs q-pt-lg q-pb-lg col-12">
               <p class="card-title">Login</p>
               <p class="card-sub-title">via  <a v-if="data" class="external-link" href="">{{data.origin}}</a> </p>
-
-              {{account}}
+ 
               <q-form class="q-pl-md q-pr-md q-pb-md q-pt-md q-pt-sm col-12">
                   <q-btn-dropdown outline color="grey-13" :label="selectedAccount.name">
                     <q-list v-if="account">
                       <q-item v-for="(userAccount , index) in account" :key="index" clickable v-close-popup >
-                        <q-item-section>
+                        <q-item-section @click="selectedAccount=userAccount;counter++">
                           <q-item-label>{{userAccount.name}}</q-item-label>
                         </q-item-section>
                       </q-item>
@@ -79,6 +78,7 @@ import LoginResponse from "src/models/local/loginResponse";
 import StorageAccountModel from "src/models/storage/accountModel";
 import Confirm from 'src/components/common/Confirm.vue'
 import WalletService from "src/localService/walletService";
+const remote = require('electron').remote;
 @Component({
     components:{
       Confirm
@@ -119,6 +119,9 @@ export default class LocalLogin extends Vue{
   {
     var lres=new LoginResponse(this.data,this.selectedAccount)
     SocketService.sendData(this.data,lres);
+    var window = remote.getCurrentWindow();
+       window.close();
+    
   }
   Deny(){
     console.log('deny')
@@ -130,7 +133,6 @@ export default class LocalLogin extends Vue{
   }
   acceptAddToBlackList(){
     console.log('accept');
-    
   }
   rejectAddToBlackList(){
     console.log('reject');

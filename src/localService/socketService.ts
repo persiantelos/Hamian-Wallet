@@ -42,9 +42,10 @@ export default class SocketService
 		var dt={
 			event:'api',
 			data:JSON.parse(JSON.stringify(data)),
-			id:request.id,
+			id:request.payloadId,
 			origin:request.payloadOrigin
 		};
+		console.log('----------',dt)
 		ipcRenderer.send('prompt-response',dt);
 
 	}

@@ -79,14 +79,14 @@ ipcMain.on('transfer',async (_, {data,name,id,globalId}) => {
   {
     var action=data.action;
     
-    console.log('>>>>>>>>>>>>>>>>',action);  
+    // console.log('>>>>>>>>>>>>>>>>',action);  
     if(action && gclass[action])
     {
       resp=await gclass[action](data.data)
     }
   }
-  console.log('-',globalId);   
-  console.log('-',resp);   
+  // console.log('-',globalId);   
+  // console.log('-',resp);   
   
   if(global.windows[globalId])
   {
