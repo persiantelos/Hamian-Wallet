@@ -20,16 +20,28 @@ const sendToEmbed = async(payload) =>{
 			var id=payload.request.data.id;
 			HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:true})
 		}
+		if(payload.request.data && payload.request.data.type=='forgetIdentity')
+		{
+			var appkey=payload.request.data.appkey;
+			//var chinid=payload.request.data.payload.fields.accounts[0].chainId
+			var existData = await global.gclass.wallet.forgetConnection(appkey)
+
+		}
 		if(payload.request.data && payload.request.data.type=='getOrRequestIdentity')
 		{
 			
 			var appkey=payload.request.data.appkey;
 			var chinid=payload.request.data.payload.fields.accounts[0].chainId
-			var existData = await global.gclass.wallet.checkConnection(appkey+chinid)
+			var existData = await global.gclass.wallet.checkConnection(appkey)
 			//HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:global.gclass.wallet.checkConnection(id)})
+			console.log('----->>>>>',existData)
 			if(existData)
 			{
-				HighLevelSockets.emit(payload.origin,payload.id,'paired',existData.data)
+				var acc=existData.result.accounts[0]
+				if(acc.chainId== chinid)
+				{
+					HighLevelSockets.emit(payload.origin,payload.id,'api',existData)
+				}
 				return
 			}
 			var id=payload.request.data.id;

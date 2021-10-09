@@ -102,7 +102,8 @@ module.exports = class Storage{
     }
     async getFromJson(name,key)
     {
-        store.get(name+'.'+key,data); 
+         
+        return store.get(name+'.'+key); 
     }
     async deleteFromJson(name,key)
     {
@@ -111,7 +112,7 @@ module.exports = class Storage{
 
     async getAllFromJson(name)
     {
-        store.get(name+'.'+key,data); 
+        store.get(name+'.'+key); 
     }
     
 

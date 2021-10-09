@@ -48,24 +48,25 @@ module.exports = class Wallet{
     {
         await global.gclass.storage.addToJson(APPLICATION,appKey,name); 
     }
-    
+
     async forgetConnection(id)
     {
         await global.gclass.storage.deleteFromJson(CONNECTIONS,id)
     }
     async checkConnection(id)
     { 
+        console.log('-------',id)
         var data = await global.gclass.storage.getFromJson(CONNECTIONS,id)
         if(data)
         {
             data.useTime=new Date().getTime();
-            await global.gclass.storage.addToJson(CONNECTIONS,id,{data,useTime:new Date().getTime()})
+            await global.gclass.storage.addToJson(CONNECTIONS,id,{data:data.data,useTime:new Date().getTime()})
             return data.data;
         }
         return null;
     }
     async saveConnection(data)
     { 
-        await global.gclass.storage.addToJson(CONNECTIONS,data.id,{data,useTime:new Date().getTime()})
+        await global.gclass.storage.addToJson(CONNECTIONS,data.key,{data,useTime:new Date().getTime()})
     }
 }
