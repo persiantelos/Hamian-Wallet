@@ -22,7 +22,17 @@ const sendToEmbed = async(payload) =>{
 		}
 		if(payload.request.data && payload.request.data.type=='getOrRequestIdentity')
 		{
-
+			
+			var appkey=payload.request.data.appkey;
+			var chinid=payload.request.data.payload.fields.accounts[0].chainId
+			var existData = await global.gclass.wallet.checkConnection(appkey+chinid)
+			//HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:global.gclass.wallet.checkConnection(id)})
+			if(existData)
+			{
+				HighLevelSockets.emit(payload.origin,payload.id,'paired',existData.data)
+				return
+			}
+			var id=payload.request.data.id;
 			var wind = new BrowserWindow({
 				width: 500, 
 				height: 700,
@@ -75,9 +85,9 @@ class LowLevelSocketService {
 
 	async emit(origin, id, path, data){
 		const socket = this.openConnections[origin+id];
-		console.log('-----------------------');
-		console.log(origin+id);
-		console.log(Object.keys(this.openConnections) );
+		// console.log('-----------------------');
+		// console.log(origin+id);
+		// console.log(Object.keys(this.openConnections) );
 		return this.emitSocket(socket, path, data);
 	}
 
@@ -156,8 +166,7 @@ class LowLevelSocketService {
 		await Promise.all(Object.keys(this.ports).map(async port => {
 			const server = this.ports[port] ? https.createServer(_certs, requestHandler) : http.createServer(requestHandler);
 			this.websockets.push(new WebSocket.Server({ server }));
-			server.listen(port);
-			console.log('------------------------',port)
+			server.listen(port); 
 			return true;
 		}));
 

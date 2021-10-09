@@ -119,6 +119,7 @@ export default class LocalLogin extends Vue{
   {
     var lres=new LoginResponse(this.data,this.selectedAccount)
     SocketService.sendData(this.data,lres);
+    WalletService.saveConnection(lres)
     var window = remote.getCurrentWindow();
        window.close();
     

@@ -1,4 +1,4 @@
-//const Store = require('electron-store');
+const Store = require('electron-store');
 const fs =require('fs');
 var aesjs = require('aes-js');
 var pbkdf2 = require('pbkdf2');
@@ -7,6 +7,7 @@ const {app} = require('electron');
 const Hamian_Setting = 'setting';
 var stores={};
 var password='';
+const store = new Store();
 module.exports = class Storage{ 
     
     stringToByteArray(s){
@@ -63,6 +64,7 @@ module.exports = class Storage{
     async loadData()
     { 
         const path = `${app.getPath('userData')}/data.json`;
+        console.log(path)
         var exist = fs.existsSync(path);
         if(!exist) return false;
         try{
@@ -90,6 +92,27 @@ module.exports = class Storage{
 
     }   
     
+    async addToJson(name,key,data)
+    { 
+        if(!store.get(name))
+        {
+            store.set(name, {});
+        }
+        store.set(name+'.'+key,data);
+    }
+    async getFromJson(name,key)
+    {
+        store.get(name+'.'+key,data); 
+    }
+    async deleteFromJson(name,key)
+    {
+        store.delete(name+'.'+key); 
+    }
+
+    async getAllFromJson(name)
+    {
+        store.get(name+'.'+key,data); 
+    }
     
 
     

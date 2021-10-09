@@ -21,4 +21,8 @@ export default class StorageService
     {
         return BaseLocalService.run(this.storageName,{action:'init',data:{password,data}});
     }
+    static saveConnection(password:string,data:string)
+    {
+        return BaseLocalService.run(this.storageName,{action:'init',data:{password,data}});
+    }
 }
