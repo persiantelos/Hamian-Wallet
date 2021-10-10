@@ -18,6 +18,13 @@ const routes: RouteConfig[] = [
     ],
   },
   {
+    path: '/popup',
+    component: () => import('layouts/PupupLayout.vue'),
+    children: [
+      { path: 'signature', component: () => import('pages/wallet/Signature.vue'),name:'Signature'}, 
+    ],
+  },
+  {
     path: '/createaccount',
     component: () => import('layouts/Authentication.vue'),
     children: [

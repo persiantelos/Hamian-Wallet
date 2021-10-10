@@ -27,6 +27,37 @@ const sendToEmbed = async(payload) =>{
 			var existData = await global.gclass.wallet.forgetConnection(appkey)
 
 		}
+		if(payload.request.data && payload.request.data.type=='requestSignature'){
+			var appkey=payload.request.data.appkey;
+			var existData = await global.gclass.wallet.checkConnection(appkey)
+			if(existData)
+			{
+				var id=payload.request.data.id;
+				var wind = new BrowserWindow({
+					width: 500, 
+					height: 700,
+					useContentSize: true,
+					webPreferences: { 
+					  nodeIntegration: process.env.QUASAR_NODE_INTEGRATION,
+					  nodeIntegrationInWorker: process.env.QUASAR_NODE_INTEGRATION, 
+					}
+				  }) 
+				  var id=Math.random().toString();
+				  global.windows[id]=wind;
+				  console.log('id: ',id)
+					  wind.on('closed', () => { 
+						delete global.windows[id];
+					})
+				  wind.loadURL(process.env.APP_URL+'?globalid='+id+'#/popup/signature')
+				  setTimeout(()=>{
+	
+					  wind.webContents.send('socketResponse', payload);
+	
+				  },1000)
+
+			}
+			
+		}
 		if(payload.request.data && payload.request.data.type=='getOrRequestIdentity')
 		{
 			
