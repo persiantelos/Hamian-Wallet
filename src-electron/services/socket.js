@@ -16,7 +16,14 @@ const sendToEmbed = async(payload) =>{
 			var id=payload.request.data.id;
 			var appkey=payload.request.data.appkey;
 			var existData = await global.gclass.wallet.checkConnection(appkey)
-			HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:existData.result})
+			if(existData)
+			{
+				HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:existData.result})
+			}
+			else
+			{
+				HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:null})
+			}
 		}
 		if(payload.request.data && payload.request.data.type=='requestAddNetwork'){
 			var id=payload.request.data.id;
@@ -51,10 +58,9 @@ const sendToEmbed = async(payload) =>{
 						delete global.windows[id];
 					})
 				  wind.loadURL(process.env.APP_URL+'?globalid='+id+'#/popup/signature')
-				  setTimeout(async ()=>{ 
-					 var tr= await global.gclass.wallet.makeStandardTransaction(payload.request.data.payload.transaction);
-					 console.log('tr:',tr)
-					payload.request.data.payload.transaction = await global.gclass.wallet.makeStandardTransaction(payload.request.data.payload.transaction);
+				  setTimeout(async ()=>{  
+					  payload.request.data.payload.transaction = await global.gclass.wallet.makeStandardTransaction(payload.request.data.payload.transaction);
+					  global.temp[payload.request.data.id]=payload.request.data
 					wind.webContents.send('socketResponse', payload);
 	
 				  },3000)
