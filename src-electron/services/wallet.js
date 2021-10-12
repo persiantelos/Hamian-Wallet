@@ -12,7 +12,7 @@ module.exports = class Wallet{
     async checkKey(dt)
     { 
         var chain=dt.chain;
-        if(chain=='EOS')
+        if(chain=='eos')
         {   
             return await EosioPlugin.checkAccountData(dt);
         }
@@ -82,5 +82,24 @@ module.exports = class Wallet{
     { 
         data.result.hash = Hasher.unsaltedQuickHash(IdGenerator.text(32))
         await global.gclass.storage.addToJson(CONNECTIONS,data.key,{data,useTime:new Date().getTime()})
+    }
+    async acceptTransaction(id)
+    {
+        if(!global.temp[id])return;
+        var payload=global.temp[id];
+
+
+        HighLevelSockets.emit(payload.payloadOrigin,payload.payloadId,'api',
+        {id:payloadOrigin.id,result:{returnedFields:{},signatures:['']}});
+        delete  global.temp[id];
+    }
+    async rejectTransaction(id)
+    {
+        if(!global.temp[id])return;
+        var payload=global.temp[id];
+        HighLevelSockets.emit(payload.payloadOrigin,payload.payloadId,'api',
+        {id:payloadOrigin.id,result:{code: 402,isError: true, message: "User rejected the signature request", type: "signature_rejected"}});
+
+        delete  global.temp[id];
     }
 }

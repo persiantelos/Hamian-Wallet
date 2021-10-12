@@ -21,4 +21,12 @@ export default class WalletService
     {
         return BaseLocalService.run(this.walletName,{action:'saveConnection',data});
     }
+    static acceptTransaction(id:string):Promise<any>
+    {
+        return BaseLocalService.run(this.walletName,{action:'acceptTransaction',id});
+    }
+    static rejectTransaction(id:string):Promise<any>
+    {
+        return BaseLocalService.run(this.walletName,{action:'rejectTransaction',id});
+    }
 }

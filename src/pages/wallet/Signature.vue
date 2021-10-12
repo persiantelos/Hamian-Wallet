@@ -24,6 +24,7 @@ import TransactionRequest from 'src/models/local/transactionRequest';
 import AccountService from 'src/services/accountService';
 import SocketService from 'src/localService/socketService';
 import RequestTypes from 'src/models/local/RequestTypes';
+const remote = require('electron').remote;
 @Component({ 
   components:{
   }
@@ -31,13 +32,17 @@ import RequestTypes from 'src/models/local/RequestTypes';
 export default class Signature extends Vue{  
   data:any={};
   transactions:TransactionRequest[]=[];
-  accept()
-  {
-    this.data.id
+  async accept()
+  { 
+    await WalletService.acceptTransaction(this.data.id);
+    var window = remote.getCurrentWindow();
+    window.close();
   }
-  reject()
+  async reject()
   {
-
+    await WalletService.rejectTransaction(this.data.id);
+    var window = remote.getCurrentWindow();
+    window.close(); 
   }
   requestSignature(data:any)
   {

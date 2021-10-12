@@ -63,7 +63,7 @@ app.on('activate', () => {
     createWindow()
   }
 })
- 
+global.temp={};
 global.gclass={
   wallet:new Wallet(),
   storage:new Storage()
