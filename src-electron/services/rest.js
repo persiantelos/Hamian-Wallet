@@ -5,7 +5,6 @@ module.exports =class Rest
     static post(url,body)
     {
         return  new Promise((res,rej)=>{
-
             
             var options = {
                 url: url,

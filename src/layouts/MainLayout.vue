@@ -37,7 +37,17 @@
         </div>
       </q-toolbar>
     </q-header>
-
+    <!-- secount side panel : wallet list -->
+    <q-drawer class="q-ml-xl" 
+      v-model="walletList"
+      show-if-above
+      style="top:70px !important"
+      dark elevated
+      :width="600">
+    </q-drawer>
+    <!-- TODO:wallet list and add account and is here -->
+    <div></div>
+    <!-- main side panel -->
     <q-drawer class="main-layout-side-panel"
       v-model="leftDrawerOpen"
       show-if-above
@@ -48,17 +58,17 @@
         <q-item-label 
           header class=" q-pt-none q-mt-sm"
         >
-          <div class="main-layout-side-panel-logo  row  q-pa-none q-ma-none">
+          <div class="main-layout-side-panel-logo  row  q-pa-none q-ma-none q-pt-sm">
             <img class="main-layout-side-panel-logo-icon q-mt-sm q-ml-md" src="../assets/picture/hamian.svg">
             <p class="q-mt-md q-ml-sm text-weight-bold text-white">HAMIAN</p>
             <q-space></q-space>
             <q-icon name="close" size="22px" class="q-mt-sm cursor-pointer" color="white" @click="leftDrawerOpen = !leftDrawerOpen"/>
           </div>
-          <div class="q-pt-sm q-mt-sm">
+          <!-- <div class="q-pt-sm q-mt-sm">
             <router-link :to="{name:'CreateAccount'}">CreateAccount</router-link><br/>
             <router-link :to="{name:'Login'}">Login</router-link><br/>
             <router-link :to="{name:'home'}">Home</router-link><br/>
-          </div>
+          </div> -->
         </q-item-label>
         <q-separator class="q-pt-xs" />
 
@@ -69,10 +79,14 @@
         >
         <q-card dark>
           <q-card-section class="q-pa-none " v-for="(blocks , index) in $store.getters.getBlockChains.blockChains" :key="index">
-            <q-item class="cursor-pointer q-pl-md bg-grey-10 block">
-                <p class="q-pl-sm q-pa-none">{{blocks.name}}<br/> {{blocks.type}}</p>
-              </q-item>            
-          </q-card-section>
+          <!-- :class="selecteBlock== 'TELOS' ? 'bg-grey-14 ':''" -->
+          <q-expansion-item 
+          :label="blocks.name"
+          :caption="blocks.type"
+          class="q-pa-none blockchain-item" expand-icon="ion"
+          switch-toggle-side icon="double_arrow" @click="showWalletList(blocks.name)" >
+          </q-expansion-item>
+          </q-card-section >
         </q-card>
       </q-expansion-item>
 
@@ -80,6 +94,8 @@
  
       </q-list>
     </q-drawer>
+    
+    
 
     <q-page-container>
       <!-- {{data}} -->
@@ -92,6 +108,7 @@
 import SocketService from 'src/localService/socketService';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import LoginRequest from 'src/models/local/loginRequest'  
+import { log } from 'console';
 @Component({ 
   name:'MainLayout',
   components:{
@@ -100,11 +117,18 @@ import LoginRequest from 'src/models/local/loginRequest'
 })
 export default class MainLayout extends Vue{
   leftDrawerOpen:boolean=false; 
+  walletList:boolean=false; 
   eventid:string="";
+  selecteBlock:string="";
   self:any=this;
   toggleLeftDrawer()
   {
     this.leftDrawerOpen=!this.leftDrawerOpen 
+  }
+  showWalletList(selecteBlock:string)
+  {
+    this.selecteBlock=selecteBlock;
+    this.walletList=!this.walletList;
   }
   
 }
@@ -136,7 +160,9 @@ export default class MainLayout extends Vue{
     .main-layout-side-panel-logo-icon{
       width:30px;
       height:30px;
+      
     }
   }
 }
+
 </style>
