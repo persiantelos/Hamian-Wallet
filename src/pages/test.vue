@@ -73,6 +73,7 @@ export default class Test extends Vue{
   async checkNetwork()
   {
     var dt =await WalletService.existData(this.selectedNet.type,this.account.privateKey,this.selectedNet.history)
+    console.log('>>>>>>>>>>>>>>>',dt)
     if(dt.account_names)
     {
         for(var a of dt.account_names)

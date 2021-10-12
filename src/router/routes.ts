@@ -19,7 +19,7 @@ const routes: RouteConfig[] = [
   },
   {
     path: '/popup',
-    component: () => import('layouts/PupupLayout.vue'),
+    component: () => import('layouts/PopupLayout.vue'),
     children: [
       { path: 'signature', component: () => import('pages/wallet/Signature.vue'),name:'Signature'}, 
     ],

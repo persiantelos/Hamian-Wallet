@@ -14,7 +14,9 @@ const sendToEmbed = async(payload) =>{
 	{
 		if(payload.request.data && payload.request.data.type=='identityFromPermissions'){
 			var id=payload.request.data.id;
-			HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:null})
+			var appkey=payload.request.data.appkey;
+			var existData = await global.gclass.wallet.checkConnection(appkey)
+			HighLevelSockets.emit(payload.origin,payload.id,'api',{id,result:existData.result})
 		}
 		if(payload.request.data && payload.request.data.type=='requestAddNetwork'){
 			var id=payload.request.data.id;
@@ -49,11 +51,13 @@ const sendToEmbed = async(payload) =>{
 						delete global.windows[id];
 					})
 				  wind.loadURL(process.env.APP_URL+'?globalid='+id+'#/popup/signature')
-				  setTimeout(()=>{
+				  setTimeout(async ()=>{ 
+					 var tr= await global.gclass.wallet.makeStandardTransaction(payload.request.data.payload.transaction);
+					 console.log('tr:',tr)
+					payload.request.data.payload.transaction = await global.gclass.wallet.makeStandardTransaction(payload.request.data.payload.transaction);
+					wind.webContents.send('socketResponse', payload);
 	
-					  wind.webContents.send('socketResponse', payload);
-	
-				  },1000)
+				  },3000)
 
 			}
 			
@@ -68,9 +72,11 @@ const sendToEmbed = async(payload) =>{
 			console.log('----->>>>>',existData)
 			if(existData)
 			{
+				var id=payload.request.data.id;
 				var acc=existData.result.accounts[0]
 				if(acc.chainId== chinid)
 				{
+					existData.id=id
 					HighLevelSockets.emit(payload.origin,payload.id,'api',existData)
 				}
 				return
@@ -90,13 +96,13 @@ const sendToEmbed = async(payload) =>{
 			  console.log('id: ',id)
 			  	wind.on('closed', () => { 
 					delete global.windows[id];
-				})
+				}) 
 			  wind.loadURL(process.env.APP_URL+'?globalid='+id+'#/login/local')
 			  setTimeout(()=>{
 
 				  wind.webContents.send('socketResponse', payload);
 
-			  },1000)
+			  },3000)
 
 		}
 

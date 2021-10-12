@@ -122,8 +122,8 @@ export default class LocalLogin extends Vue{
     var appkey=this.data.appkey;
     // var chinid=this.data.chainId;
     lres.key=appkey;//+chinid;
-    SocketService.sendData(this.data,lres);
     WalletService.saveConnection(lres)
+    SocketService.sendData(this.data,lres);
     var window = remote.getCurrentWindow();
        window.close();
     

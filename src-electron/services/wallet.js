@@ -1,33 +1,46 @@
-const eosio=require('eosjs');
+
+
 const ecc = require('eosjs-ecc');
 var rest=require('./rest');
 const CONNECTIONS='connections';
 const APPLICATION='applicaion';
+
+const Hasher =require( './utils/Hasher');
+const IdGenerator =require( './utils/IdGenerator');
+const EosioPlugin=require('./accounts/eosioPlugin')
 module.exports = class Wallet{
     async checkKey(dt)
     { 
         var chain=dt.chain;
         if(chain=='EOS')
-        {  
-            var pub = ecc.PrivateKey(dt.key).toPublic().toString('EOS')// await public_key_from_private(dt.key);
-            console.log('>>',pub)
-            var data = await rest.post(dt.url+'/v1/history/get_key_accounts',{"public_key":pub});
-            data.publicKey=pub;
-            return data
+        {   
+            return await EosioPlugin.checkAccountData(dt);
         }
     }
     async addAccount(dt)
-    { 
-        dt.publicKey =ecc.PrivateKey(dt.privateKey).toPublic().toString('EOS')
+    {  
+
+        dt=await EosioPlugin.createAccount(dt);  
         var data =await global.gclass.storage.loadData(); 
         if(!data)return false;
         if(!data.accounts)data.accounts=[];
-        var exist = data.accounts.filter(p=>p.authority==dt.authority && p.privateKey==dt.privateKey && p.name==dt.name)[0];
+        var exist = data.accounts.filter(p=>p._id==dt._id)[0];
         if(exist) return false;
         data.accounts.push(dt);
         await global.gclass.storage.saveData(data);
         return true
     } 
+
+    async makeStandardTransaction(transaction)
+    { 
+        return await EosioPlugin.makeStandardTransaction(transaction);
+        
+    }
+
+    async findAccount(id)
+    {
+
+    }
     async getAccounts()
     {
         var data =await global.gclass.storage.loadData();
@@ -67,6 +80,7 @@ module.exports = class Wallet{
     }
     async saveConnection(data)
     { 
+        data.result.hash = Hasher.unsaltedQuickHash(IdGenerator.text(32))
         await global.gclass.storage.addToJson(CONNECTIONS,data.key,{data,useTime:new Date().getTime()})
     }
 }
