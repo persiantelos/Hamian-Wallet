@@ -106,7 +106,7 @@
 
 <script lang="ts">  
 import SocketService from 'src/localService/socketService';
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue , Watch } from 'vue-property-decorator';
 import LoginRequest from 'src/models/local/loginRequest'  
 import { log } from 'console';
 @Component({ 
@@ -121,6 +121,11 @@ export default class MainLayout extends Vue{
   eventid:string="";
   selecteBlock:string="";
   self:any=this;
+  @Watch('leftDrawerOpen')
+  closeMenu()
+  {
+    this.leftDrawerOpen == false ? this.walletList = false : '';
+  }
   toggleLeftDrawer()
   {
     this.leftDrawerOpen=!this.leftDrawerOpen 
