@@ -23,10 +23,10 @@ export default class WalletService
     }
     static acceptTransaction(id:string):Promise<any>
     {
-        return BaseLocalService.run(this.walletName,{action:'acceptTransaction',id});
+        return BaseLocalService.run(this.walletName,{action:'acceptTransaction',data:id});
     }
     static rejectTransaction(id:string):Promise<any>
     {
-        return BaseLocalService.run(this.walletName,{action:'rejectTransaction',id});
+        return BaseLocalService.run(this.walletName,{action:'rejectTransaction',data:id});
     }
 }

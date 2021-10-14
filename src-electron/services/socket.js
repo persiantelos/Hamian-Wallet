@@ -59,7 +59,11 @@ const sendToEmbed = async(payload) =>{
 					})
 				  wind.loadURL(process.env.APP_URL+'?globalid='+id+'#/popup/signature')
 				  setTimeout(async ()=>{  
+					payload.request.data.payload.buf=payload.request.data.payload.transaction.abis[0].abi
+					console.log(payload.request.data.payload.transaction)
 					  payload.request.data.payload.transaction = await global.gclass.wallet.makeStandardTransaction(payload.request.data.payload.transaction);
+					  payload.request.data.payloadId = payload.id;
+					  payload.request.data.payloadOrigin = payload.origin;
 					  global.temp[payload.request.data.id]=payload.request.data
 					wind.webContents.send('socketResponse', payload);
 	

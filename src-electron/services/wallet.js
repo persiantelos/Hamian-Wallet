@@ -8,6 +8,7 @@ const APPLICATION='applicaion';
 const Hasher =require( './utils/Hasher');
 const IdGenerator =require( './utils/IdGenerator');
 const EosioPlugin=require('./accounts/eosioPlugin')
+const HighLevelSockets = require('./socket');
 module.exports = class Wallet{
     async checkKey(dt)
     { 
@@ -88,18 +89,44 @@ module.exports = class Wallet{
         if(!global.temp[id])return;
         var payload=global.temp[id];
 
-
+        var dt= await this.runTransaction(payload)
+        var result={}
+        if(dt.data)
+        {
+            result={returnedFields:{},signatures:dt.data}
+        }
+        console.log('------------------------------------',dt)
         HighLevelSockets.emit(payload.payloadOrigin,payload.payloadId,'api',
-        {id:payloadOrigin.id,result:{returnedFields:{},signatures:['']}});
+        {id:payload.id,result:result});
         delete  global.temp[id];
     }
     async rejectTransaction(id)
     {
+        console.log('payload:',id)
         if(!global.temp[id])return;
         var payload=global.temp[id];
+        console.log('payload:',payload)
         HighLevelSockets.emit(payload.payloadOrigin,payload.payloadId,'api',
-        {id:payloadOrigin.id,result:{code: 402,isError: true, message: "User rejected the signature request", type: "signature_rejected"}});
+        {id:payload.id,result:{code: 402,isError: true, message: "User rejected the signature request", type: "signature_rejected"}});
 
         delete  global.temp[id];
+    }
+     async runTransaction(data)
+    {
+        var appKey=data.appkey;
+        var connection = await this.checkConnection(appKey);
+        if(!connection)
+        {
+            return {error:"connection not found"};
+        }
+        
+        var account = await EosioPlugin.findUser(connection.result.accounts[0]);
+
+ 
+        var network=data.payload.network;
+        var transaction=data.payload.transaction; 
+        var res = await EosioPlugin.runTransaction(network,transaction,account,data.payload);
+ 
+        return res
     }
 }
