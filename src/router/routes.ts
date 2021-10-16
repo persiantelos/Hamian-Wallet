@@ -6,6 +6,7 @@ const routes: RouteConfig[] = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue'),name:'home'},
+      { path: '/networks/:chainId', component: () => import('src/pages/wallet/Networks.vue'),name:'walletNetwork'},
       // { path: 'modelpage/:name/:scope', component: () => import('pages/admin/modelPage.vue') },
     ],
   },

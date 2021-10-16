@@ -40,8 +40,8 @@
     </q-header>
      
     <!-- TODO:wallet list and add account and is here -->
-    <div></div>
-    <!-- main side panel -->
+    <div>wallet list and add account and is here</div>
+    <!-- MAIN PANEL -->
     <q-drawer class="main-layout-side-panel"
       :value="true"
       :mini="leftDrawerOpen"
@@ -60,11 +60,6 @@
             <q-space></q-space>
             <q-icon name="close" size="22px" class="q-mt-sm cursor-pointer" color="white" @click="leftDrawerOpen = !leftDrawerOpen"/>
           </div>
-          <!-- <div class="q-pt-sm q-mt-sm">
-            <router-link :to="{name:'CreateAccount'}">CreateAccount</router-link><br/>
-            <router-link :to="{name:'Login'}">Login</router-link><br/>
-            <router-link :to="{name:'home'}">Home</router-link><br/>
-          </div> -->
         </q-item-label>
         <q-separator class="q-pt-xs" />
 
@@ -76,24 +71,19 @@
         >
         <q-card dark>
           <q-card-section class="q-pa-none " v-for="(blocks , index) in $store.getters.getBlockChains.blockChains" :key="index">
-          <!-- :class="selecteBlock== 'TELOS' ? 'bg-grey-14 ':''" -->
           <q-expansion-item 
           :label="blocks.name"
           :caption="blocks.type"
           class="q-pa-none blockchain-item" expand-icon="ion"
-          switch-toggle-side icon="double_arrow" @click="showWalletList(blocks.name)" >
+          switch-toggle-side icon="double_arrow" @click="showNetworkList(blocks.chainId)" >
           </q-expansion-item>
           </q-card-section >
         </q-card>
       </q-expansion-item>
-
       </q-list>
  
       </q-list>
     </q-drawer>
-    
-    
-
     <q-page-container>
       <!-- {{data}} -->
       <router-view />
@@ -103,34 +93,25 @@
 
 <script lang="ts">  
 import SocketService from 'src/localService/socketService';
-import { Component, Prop, Vue , Watch } from 'vue-property-decorator';
+import { Component, Prop, Vue  } from 'vue-property-decorator';
 import LoginRequest from 'src/models/local/loginRequest'  
-import { log } from 'console';
 @Component({ 
   name:'MainLayout',
   components:{
-     
   }
 })
 export default class MainLayout extends Vue{
   leftDrawerOpen:boolean=false; 
-  walletList:boolean=false; 
   eventid:string="";
-  selecteBlock:string="";
   self:any=this;
-  @Watch('leftDrawerOpen')
-  closeMenu()
-  {
-    this.leftDrawerOpen == false ? this.walletList = false : '';
-  }
+ 
   toggleLeftDrawer()
   {
     this.leftDrawerOpen=!this.leftDrawerOpen 
   }
-  showWalletList(selecteBlock:string)
+  showNetworkList(chainId:any)
   {
-    this.selecteBlock=selecteBlock;
-    this.walletList=!this.walletList;
+    this.$router.push({name : 'walletNetwork' , params:{'chainId':chainId}})
   }
   drawerClick()
   {
