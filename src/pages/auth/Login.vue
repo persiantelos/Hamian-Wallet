@@ -14,7 +14,7 @@
           <div class="card q-pa-xs q-pt-lg q-pb-lg">
             <p class="card-title">Login</p>
             <p class="card-sub-title">Enter your password to login to your account!</p>
-            <q-form class="q-pl-md q-pr-md q-pt-sm">
+            <q-form class="q-pl-md q-pr-md q-pt-sm" @submit="login()">
                 <!-- password -->
                 <q-input 
                 type="password"
@@ -26,6 +26,7 @@
                 outlined 
                 standout="bg-gray-10 text-white color-white"
                 v-model="person.password" 
+                @click:enter="login()"
                 label="Password" />
                 <!-- confirm password -->
             </q-form>
@@ -61,11 +62,16 @@ export default class Login extends Vue{
   rulesCondition:boolean=false;
   async login()
   {
-    var data=await StorageService.login(this.person.password);
-    if(data)
-      window.location.href='/';
-      // console.log('login------->',data)
-      
+    if(this.person.password.length > 5){
+      var data=await StorageService.login(this.person.password);
+      if(data)
+        window.location.href='/';
+        // console.log('login------->',data)
+    }
+    else{
+      //  TODO:needs password validate
+      console.log('enter your password')
+    }
   }
 }
 </script>

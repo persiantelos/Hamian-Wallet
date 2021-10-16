@@ -14,7 +14,7 @@
           <div class="card q-pa-xs q-pt-lg q-pb-lg">
             <p class="card-title">Getting Started</p>
             <p class="card-sub-title">Create an account to continue!</p>
-            <q-form class="q-pl-md q-pr-md q-pt-sm">
+            <q-form class="q-pl-md q-pr-md q-pt-sm" @submit="login()">
                 <!-- password -->
                 <q-input 
                 type="password"
@@ -63,7 +63,7 @@
             </div>
             <!-- register -->
             <div class="center col-12 q-pa-md q-pl-md q-pr-md">
-              <q-btn class="register-btn full-width"   label="Login" />
+              <q-btn class="register-btn full-width" @click="login()"  label="Login" />
             </div>
             <!-- login  -->
             <div class="col-12 center">
@@ -131,6 +131,10 @@ export default class Login extends Vue{
       console.log('Failed to load JSON file', path, error)
       throw error
     })
+  }
+  login(){
+    // TODO:password and file need to validate 
+    console.log('login method is not writed yet')
   }
 }
 </script>

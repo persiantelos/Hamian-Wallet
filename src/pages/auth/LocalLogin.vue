@@ -16,7 +16,7 @@
               <p class="card-title">Login</p>
               <p class="card-sub-title">via  <a v-if="data" class="external-link" href="">{{data.origin}}</a> </p>
  
-              <q-form class="q-pl-md q-pr-md q-pb-md q-pt-md q-pt-sm col-12">
+              <q-form class="q-pl-md q-pr-md q-pb-md q-pt-md q-pt-sm col-12" @submit="selectedAccount=userAccount;counter++">
                   <q-btn-dropdown outline color="grey-13" :label="selectedAccount.name">
                     <q-list v-if="account">
                       <q-item v-for="(userAccount , index) in account" :key="index" clickable v-close-popup >

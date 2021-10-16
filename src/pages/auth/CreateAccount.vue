@@ -14,7 +14,7 @@
           <div class="card q-pa-xs q-pt-lg q-pb-lg">
             <p class="card-title">Getting Started</p>
             <p class="card-sub-title">Create an account to continue!</p>
-            <q-form class="q-pl-md q-pr-md q-pt-sm">
+            <q-form class="q-pl-md q-pr-md q-pt-sm" @submit="createAccount()">
                 <!-- password -->
                 <q-input 
                 type="password"
@@ -36,7 +36,8 @@
                 bg-color="grey-10" 
                 outlined 
                 standout="bg-gray-10 text-white"
-                v-model="person.confirmPassword" 
+                v-model="person.confirmPassword"
+                @click:enter="createAccount()"
                 label="Confirm your Password" />
             </q-form>
             <!-- password validate -->
@@ -91,8 +92,20 @@ export default class Login extends Vue{
   rulesCondition:boolean=false;
   async createAccount()
   {
-    var success=await StorageService.initData(this.person.password,'');
-    console.log('success:',success)
+    if(this.person.password.length > 5){
+      if(this.person.password === this.person.confirmPassword){
+        var success=await StorageService.initData(this.person.password,'');
+        console.log('success:',success)
+        }
+        else{
+          // TODO:validate
+          console.log('password and confirmPassword is not the same')
+        }
+      }
+      else{
+        // TODO:password validate
+        console.log('enter your password')
+      }
   }
 }
 </script>
