@@ -7,6 +7,7 @@
           dense
           round
           icon="menu"
+          v-if="leftDrawerOpen"
           aria-label="Menu"
           @click="toggleLeftDrawer"
         />
@@ -37,21 +38,16 @@
         </div>
       </q-toolbar>
     </q-header>
-    <!-- secount side panel : wallet list -->
-    <q-drawer class="q-ml-xl" 
-      v-model="walletList"
-      show-if-above
-      style="top:70px !important"
-      dark elevated
-      :width="600">
-    </q-drawer>
+     
     <!-- TODO:wallet list and add account and is here -->
     <div></div>
     <!-- main side panel -->
     <q-drawer class="main-layout-side-panel"
-      v-model="leftDrawerOpen"
+      :value="true"
+      :mini="leftDrawerOpen"
       show-if-above
-      bordered
+      @click.capture="drawerClick"
+      bordered 
       dark 
     >
       <q-list class="bg-grey-10">
@@ -72,7 +68,8 @@
         </q-item-label>
         <q-separator class="q-pt-xs" />
 
-       <q-list dark padding   >
+       <q-list dark padding   > 
+            <img v-if="leftDrawerOpen" style="width:30px" class="main-layout-side-panel-logo-icon q-mt-sm q-ml-md" src="../assets/picture/hamian.svg">
         <q-expansion-item
           icon="grid_view"
           label="Blockchains"
@@ -135,7 +132,11 @@ export default class MainLayout extends Vue{
     this.selecteBlock=selecteBlock;
     this.walletList=!this.walletList;
   }
-  
+  drawerClick()
+  {
+    if(this.leftDrawerOpen)
+      this.leftDrawerOpen=false
+  } 
 }
 </script>
 <style lang="scss" scoped>
