@@ -9,4 +9,9 @@ export default class CommonService
         var dt = await BaseServices.post(Config.server+'web/getOptions',{table:'networks'}); 
         return dt.value;
     }
+    static async getTokens():Promise<NetworkModel[]>
+    {
+        var dt = await BaseServices.post(Config.server+'web/getOptions',{table:'tokens'}); 
+        return dt.value;
+    }
 }
