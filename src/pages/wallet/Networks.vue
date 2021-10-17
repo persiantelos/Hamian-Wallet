@@ -1,10 +1,10 @@
 <template>
   <div class="row col-12"> 
     <div class="col-4 q-pa-md q-pt-md menu">
-      <NetWorkMenu />
+      <NetWorkMenu :chainId="$route.params.chainId" @selectedItem="selectedItemChanged" />
     </div>
     <div class="col-8 q-pa-md q-pt-md body">
-      <AccountList />
+      <AccountList v-model="accuntList" />
     </div>
   </div>
 </template>
@@ -21,7 +21,25 @@ const remote = require('electron').remote;
   }
 })
 export default class Networks extends Vue{
-  @Prop({default:() =>{return []}}) blockChain:any;
+  accuntList:any=[];
+  selectedItemChanged(data:any){
+    if(data == 'accountList'){
+      this.accuntList = data;
+    }
+    else if(data == 'resources'){
+      this.accuntList = data;
+    }
+    else if(data == 'tokens'){
+      this.accuntList = data;
+    }
+    else if(data == 'transferToken'){
+      this.accuntList = data;
+    }
+  }
+  // @Prop({default:() =>{return []}}) blockChain:any;
+  // created(){
+    // console.log(this.$route.params.chainId);
+  // }
 }
 </script>
 <style lang="scss" scoped>

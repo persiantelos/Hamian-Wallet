@@ -5,19 +5,19 @@
       <div class="col-12 menue-internal-box bg-grey-10 q-ma-md">
         <div class="q-pa-xs q-ml-md q-mt-sm">
           <div class="row">
-            <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer">Account List</h3>
+            <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer" @click="selectedItem('accountList')" >Account List</h3>
             <q-space></q-space>
             <q-btn label="New" icon="add" color="grey-9" rounded class="text-grey-11 q-ma-xs" />
           </div>
-          <div class="col-12" v-for="(account , index) in accountList" :key="index">
+          <!-- <div class="col-12" v-for="(account , index) in accountList" :key="index">
             <p class="text-white text-caption cursor-pointer">{{account.name}}</p>
-          </div>
+          </div> -->
         </div>
       </div>
       <!-- RESOURCES -->
       <div class="col-12 menue-internal-box bg-grey-10 q-ma-md">
         <div class="q-pa-xs q-ml-md q-mt-sm">
-          <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer">Resources</h3>
+          <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer" @click="selectedItem('resources')">Resources</h3>
           <div class="col-12" v-for="(recource , index) in resources" :key="index">
             <p class="text-white text-caption cursor-pointer">{{resource.name}}</p>
           </div>
@@ -26,7 +26,7 @@
       <!-- TOKEN lIST -->
       <div class="col-12 menue-internal-box bg-grey-10 q-ma-md">
         <div class="q-pa-xs q-ml-md q-mt-sm">
-          <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer">Tokens</h3>
+          <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer" @click="selectedItem('tokens')">Tokens</h3>
           <div class="col-12" v-for="(token , index) in tokenList" :key="index">
             <p class="text-white text-caption cursor-pointer">{{token.name}}</p>
           </div>
@@ -35,7 +35,7 @@
       <!-- TRANSFER TOKEN -->
       <div class="col-12 menue-internal-box bg-grey-10 q-ma-md">
         <div class="q-pa-xs q-ml-md q-mt-sm">
-          <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer">Move Token</h3>
+          <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer" @click="selectedItem('transferToken')">Transfer Token</h3>
           <!-- <div class="col-12" v-for="(token , index) in tokenList" :key="index"> -->
             <!-- <p class="text-white text-caption cursor-pointer">{{token.name}}</p> -->
           </div>
@@ -47,33 +47,31 @@
 
 <script lang="ts"> 
 import { Component, Prop, Vue } from 'vue-property-decorator'; 
-import WalletService from 'src/localService/walletService'
+import CommonService from 'src/services/commonService'
 
 const remote = require('electron').remote;
 @Component({ 
   components:{
-  }
+  },
 })
 export default class NetworkMenu extends Vue{   
-  accountList:any=[];
+  @Prop({default:() =>{return []}}) chainId:any;
+
   resources:any=[];
   tokenList:any=[];
+  nets:any=[];
+  accountInformation:any=[];
 
   mounted(){
-    // console.log(this.$router)
-    this.getAccounts();
-    this.getResources();
-    this.getTokenList();
+    this.getNets();
+  }
+  async getNets(){
+    this.nets = await CommonService.getNetworks();
+    // console.log('net',this.nets);
   }
 
-  async getResources(){
-    // TODO:needs service
-  }
-  async getTokenList(){
-    // TODO:needs service
-  }
-  async getAccounts(){
-    this.accountList = await WalletService.getAccounts();
+  selectedItem(data:string){
+      this.$emit('selectedItem',data)
   }
 }
 </script>
