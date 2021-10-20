@@ -7,7 +7,7 @@
           <div class="row">
             <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer" @click="selectedItem('accountList')" >Account List</h3>
             <q-space></q-space>
-            <q-btn label="New" icon="add" color="grey-9" rounded class="text-grey-11 q-ma-xs" />
+            <q-btn @click="addNewAccount()" label="New" icon="add" color="grey-9" rounded class="text-grey-11 q-ma-xs" />
           </div>
           <!-- <div class="col-12" v-for="(account , index) in accountList" :key="index">
             <p class="text-white text-caption cursor-pointer">{{account.name}}</p>
@@ -40,18 +40,22 @@
             <!-- <p class="text-white text-caption cursor-pointer">{{token.name}}</p> -->
           </div>
       </div>
-      </div>
-    </div> 
-  </div>
+    </div>
+    <div class="col-12 row" v-show="showAddNewAccountPopUp">
+      <AddNewAccount @close="showAddNewAccountPopUp = ! showAddNewAccountPopUp"  v-model="showAddNewAccountPopUp" />
+    </div>
+  </div> 
 </template>
 
 <script lang="ts"> 
 import { Component, Prop, Vue } from 'vue-property-decorator'; 
 import CommonService from 'src/services/commonService'
+import AddNewAccount from 'src/components/wallet/networks/add_new_account/AddNewAccount.vue'
 
 const remote = require('electron').remote;
 @Component({ 
   components:{
+    AddNewAccount
   },
 })
 export default class NetworkMenu extends Vue{   
@@ -61,17 +65,19 @@ export default class NetworkMenu extends Vue{
   tokenList:any=[];
   nets:any=[];
   accountInformation:any=[];
+  showAddNewAccountPopUp:boolean=false;
 
   mounted(){
     this.getNets();
   }
   async getNets(){
     this.nets = await CommonService.getNetworks();
-    // console.log('net',this.nets);
   }
-
   selectedItem(data:string){
-      this.$emit('selectedItem',data)
+    this.$emit('selectedItem',data)
+  }
+  addNewAccount(){
+    this.showAddNewAccountPopUp = true;
   }
 }
 </script>

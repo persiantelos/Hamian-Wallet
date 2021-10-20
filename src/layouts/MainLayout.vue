@@ -75,7 +75,7 @@
           :label="blocks.name"
           :caption="blocks.type"
           class="q-pa-none blockchain-item" expand-icon="ion"
-          switch-toggle-side icon="double_arrow" @click="showNetworkList(blocks.chainId)" >
+          switch-toggle-side icon="double_arrow" @click="showNetworkList(blocks)" >
           </q-expansion-item>
           </q-card-section >
         </q-card>
@@ -83,6 +83,8 @@
       </q-list>
  
       </q-list>
+        <router-link :to="{name:'home'}">home</router-link><br/>
+
     </q-drawer>
     <q-page-container>
       <!-- {{data}} -->
@@ -109,9 +111,10 @@ export default class MainLayout extends Vue{
   {
     this.leftDrawerOpen=!this.leftDrawerOpen 
   }
-  showNetworkList(chainId:any)
+  showNetworkList(selectedNet:any)
   {
-    this.$router.push({name : 'walletNetwork' , params:{'chainId':chainId}})
+    this.$store.state.currentTet = selectedNet;
+    this.$router.push({name : 'walletNetwork' , params:{'chainId':selectedNet.chainId}})
   }
   drawerClick()
   {
