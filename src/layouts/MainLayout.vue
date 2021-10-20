@@ -23,11 +23,32 @@
             </div>
             <div class="col">
               <div class="main-layout-tools">
-                <p class="text-subtitle2 q-ma-xs q-mt-sm">TOOLS</p>
+                <!-- <p class="text-subtitle2 q-ma-xs q-mt-sm">TOOLS</p> -->
+                <q-expansion-item
+                  class="q-pa-none q-ma-none"
+                  label="Tools"
+                  style="position:relative"
+                  expand-icon="ion"
+                  :duration="10"
+                >
+                <q-card dark class="q-mt-md" style="position: fixed;background:none">
+                  <q-expansion-item 
+                  label="QR Code"
+                  icon="qr_code"
+                  class="q-pa-none" expand-icon="ion"
+                  @click="showQrCode()" >
+                  </q-expansion-item>
+                  <q-expansion-item 
+                  label="Generate Keys"
+                  icon="key"
+                  class="q-pa-none" expand-icon="ion"
+                  @click="generateKey()" >
+                  </q-expansion-item>
+                </q-card>
+              </q-expansion-item>
               </div>
             </div>
         </q-toolbar-title>
-
         <div class="q-pt-md">
           <p class="text-subtitle2">
             <router-link class="main-layout-link cursor-pointer row" :to="{name:'Setting'}">
@@ -53,11 +74,11 @@
       dark 
     >
       <q-list class="bg-grey-10">
-        <q-item-label 
-          header class=" q-pt-none q-mt-sm"
-        >
+        <q-item-label header class=" q-pt-none q-mt-sm">
           <div class="main-layout-side-panel-logo  row  q-pa-none q-ma-none q-pt-sm">
-            <img class="main-layout-side-panel-logo-icon q-mt-sm q-ml-md" src="../assets/picture/hamian.svg">
+            <router-link :to="{name:'home'}" class="cursor-pointer">
+              <img class="main-layout-side-panel-logo-icon q-mt-sm q-ml-md" src="../assets/picture/hamian.svg">
+            </router-link>
             <p class="q-mt-md q-ml-sm text-weight-bold text-white">HAMIAN</p>
             <q-space></q-space>
             <q-icon name="close" size="22px" class="q-mt-sm cursor-pointer" color="white" @click="leftDrawerOpen = !leftDrawerOpen"/>
@@ -85,28 +106,38 @@
       </q-list>
  
       </q-list>
-        <router-link :to="{name:'home'}">home</router-link><br/>
 
     </q-drawer>
     <q-page-container>
       <!-- {{data}} -->
       <router-view />
     </q-page-container>
+    <div v-show="QrCode">
+      <q-dialog v-model="QrCode">
+        <q-card>
+          <QRCode v-model="accountName" />
+        </q-card>
+      </q-dialog>
+    </div>
   </q-layout>
 </template>
 
 <script lang="ts">  
 import SocketService from 'src/localService/socketService';
 import { Component, Prop, Vue  } from 'vue-property-decorator';
-import LoginRequest from 'src/models/local/loginRequest'  
+import LoginRequest from 'src/models/local/loginRequest'
+import QRCode from 'src/components/common/QrCode.vue'  
 @Component({ 
   name:'MainLayout',
   components:{
+    QRCode,
   }
 })
 export default class MainLayout extends Vue{
   leftDrawerOpen:boolean=false; 
+  QrCode:boolean=false; 
   eventid:string="";
+  accountName:string="mrg2195";
   self:any=this;
  
   toggleLeftDrawer()
@@ -123,6 +154,9 @@ export default class MainLayout extends Vue{
     if(this.leftDrawerOpen)
       this.leftDrawerOpen=false
   } 
+  showQrCode(){
+    this.QrCode = true;
+  }
 }
 </script>
 <style lang="scss" scoped>
