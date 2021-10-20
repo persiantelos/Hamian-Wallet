@@ -9,6 +9,11 @@
           <div class="row" v-for="(account , index) in data.accountList" :key="index">
             <img v-if="account.name" class="q-mr-md q-mt-xs user-icon"  src="../../../assets/picture/acc-user.svg" >
             <h3 v-if="account.name" class="text-white q-pa-none q-ma-none internal-titles cursor-pointer q-mt-xs">{{account.name}}</h3>
+          <div class="row col-12 text-white">
+            <p>Public Key: <span class="q-ml-md">{{account.publicKey}}</span> </p>
+            <p class="q-ml-md">TELOS:<span class="q-ml-md">{{account}}</span></p>
+            <p class="q-ml-md">DARIC:<span class="q-ml-md">{{account}}</span></p>
+          </div>
           </div>
           
         </div>
