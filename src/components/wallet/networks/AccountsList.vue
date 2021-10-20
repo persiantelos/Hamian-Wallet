@@ -6,8 +6,9 @@
       <div v-show="value == 'accountList'" class="col-12 account-list-internal-box bg-grey-10 q-ma-md" >
         <div class="q-pa-xs q-ml-md q-mt-sm" >
           <div class="row" v-for="(account , index) in data.accountList" :key="index">
-            <q-icon name="person" color="white" size="22px" class="q-ma-md" />
-            <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer q-mt-xs">{{account.name}}</h3>
+            
+            <img v-if="account.name" class="q-mr-md q-mt-xs user-icon"  src="../../../assets/picture/acc-user.svg" >
+            <h3 v-if="account.name" class="text-white q-pa-none q-ma-none internal-titles cursor-pointer q-mt-xs">{{account.name}}</h3>
           </div>
           <!-- CONTENT -->
           <div class="col-12 q-ma-md" >
@@ -90,6 +91,9 @@ export default class AccountsList extends Vue{
       border-radius: 10px;
       .internal-titles{
         font-size: 22px;
+      }
+      .user-icon{
+        width: 30px;
       }
     }
   }
