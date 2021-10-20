@@ -188,19 +188,10 @@ export default class AccountsList extends Vue{
   @Prop({default:() =>{return []}}) value:any;
   counter:number=0;
   tab:string='token'
-  showCustomToken:boolean=true;
-  tokenList:any=[
-    {
-      id:0,
-      title:'2000 TELOS',
-    },
-    {
-      id:1,
-      title:'2000 DARIC',
-    },
-    ]
+  showCustomToken:boolean=false;
+  tokenList:any=[]
   transferToken:any={
-    customToken:'2000 TELOS',
+    customToken:'',
     amount:0,
     sendTo:'',
     memo:'',
