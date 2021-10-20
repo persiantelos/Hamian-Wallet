@@ -244,7 +244,7 @@ export default class AccountsList extends Vue{
 .account-list-body{
   border-radius: 10px;
   .account-list-boxs-parent{
-    min-height: 100vh;
+    min-height: 85vh;
     .account-list-internal-box{
       border-radius: 10px;
       .internal-titles{
