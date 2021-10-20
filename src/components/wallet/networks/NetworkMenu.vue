@@ -5,13 +5,10 @@
       <div class="col-12 menue-internal-box bg-grey-10 q-ma-md">
         <div class="q-pa-xs q-ml-md q-mt-sm">
           <div class="row">
-            <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer" @click="selectedItem('accountList')" >Account List</h3>
+            <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer"  @click="selectedItem('accountList')" >Account List</h3>
             <q-space></q-space>
             <q-btn @click="addNewAccount()" label="New" icon="add" color="grey-9" rounded class="text-grey-11 q-ma-xs" />
           </div>
-          <!-- <div class="col-12" v-for="(account , index) in accountList" :key="index">
-            <p class="text-white text-caption cursor-pointer">{{account.name}}</p>
-          </div> -->
         </div>
       </div>
       <!-- RESOURCES -->
