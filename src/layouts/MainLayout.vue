@@ -137,9 +137,12 @@ export default class MainLayout extends Vue{
   leftDrawerOpen:boolean=false; 
   QrCode:boolean=false; 
   eventid:string="";
-  accountName:string="mrg2195";
+  accountName:string="";
   self:any=this;
- 
+  mounted(){
+    // TODO:need service to get usser acc info and this.accountName = usserAccount.name
+    this.accountName = 'needs service to recive account information  MainLayout.vue line 143'
+  }
   toggleLeftDrawer()
   {
     this.leftDrawerOpen=!this.leftDrawerOpen 
