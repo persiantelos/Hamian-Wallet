@@ -71,7 +71,7 @@
           >
           <q-tab-panel name="token" >
             <div class="col-12 text-white q-mt-xs">
-            <div class="text-h6 q-mb-md">Amount
+            <div class="text-h6 q-mb-md">Amount:
               <q-input 
                 type="number"
                 dark
@@ -95,14 +95,14 @@
                  </template>
               </q-input>
               <div class="row col-12">
-                <p class="text-blue-11 q-ml-xs" @click="sendEntireBalance()">Send entire balance</p>
+                <p class="text-blue-11 q-ml-xs  cursor-pointer" @click="sendEntireBalance()">Send entire balance</p>
                 <q-space></q-space>
-                <p class="text-blue-11 q-ml-xs q-mr-xs" @click="showCustomToken = true">Use custom token</p>
+                <p class="text-blue-11 q-ml-xs q-mr-xs  cursor-pointer" @click="showCustomToken = true">Use custom token</p>
               </div>
               <div v-if="showCustomToken">
                 <div class="col-12 row">
                   <div class="col-6">
-                    <div class="text-h6 q-mb-md">Symbol
+                    <div class="text-h6 q-mb-md">Symbol:
                       <q-input 
                         type="text"
                         dark
@@ -116,7 +116,7 @@
                     </div>
                   </div>
                   <div class="col-6">
-                    <div class="text-h6 q-mb-md">Contract
+                    <div class="text-h6 q-mb-md">Contract:
                       <q-input 
                         type="text"
                         dark
@@ -130,7 +130,7 @@
                     </div>
                   </div>
                   <div class="col-12 row" align="left">
-                    <p class="text-blue-11 q-ml-xs q-mr-xs" @click="showCustomToken = !showCustomToken">
+                    <p class="text-blue-11 q-ml-xs q-mr-xs cursor-pointer" @click="showCustomToken = !showCustomToken">
                       Don't use custom token / contract  
                     </p>
                   </div>
