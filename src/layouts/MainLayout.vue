@@ -30,9 +30,11 @@
 
         <div class="q-pt-md">
           <p class="text-subtitle2">
-            <router-link class="main-layout-link cursor-pointer" :to="{name:'Setting'}">
-            <q-icon name="settings" size="20px" />
-            Setting
+            <router-link class="main-layout-link cursor-pointer row" :to="{name:'Setting'}">
+            <img src="../assets/picture/Setting.svg">
+            <p class="q-mt-md q-ml-sm">
+              Setting
+            </p>
             </router-link>
           </p>
         </div>
