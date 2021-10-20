@@ -23,7 +23,7 @@
                                     style="border: 0px solid white" 
                                     bg-color="grey-10" 
                                     color="white" 
-                                    borderless 
+                                    outlined 
                                     standout="bg-gray-10 text-white color-white q-pl-md"
                                     v-model="account.privateKey" 
                                     @click:enter="checkNetwork()"
