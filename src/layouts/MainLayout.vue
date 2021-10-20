@@ -25,13 +25,13 @@
               <div class="main-layout-tools">
                 <!-- <p class="text-subtitle2 q-ma-xs q-mt-sm">TOOLS</p> -->
                 <q-expansion-item
-                  class="q-pa-none q-ma-none"
+                  class="q-pa-none q-ma-none bg-grey-10"
                   label="Tools"
                   style="position:relative"
                   expand-icon="ion"
                   :duration="10"
                 >
-                <q-card dark class="q-mt-md" style="position: fixed;background:none">
+                <q-card dark class="q-mt-md" style="position: fixed;border-radius:15px">
                   <q-expansion-item 
                   label="QR Code"
                   icon="qr_code"
