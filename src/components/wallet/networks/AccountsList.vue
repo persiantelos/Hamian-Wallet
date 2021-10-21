@@ -85,39 +85,39 @@
             </div>
             <div class="col-12 account-list-internal-box  bg-grey-10 q-ma-xs">
               <div class="text-h6 text-white row">
-                <p class="q-ma-xs q-pt-sm">Available:</p>
+                <p class="text-subtitle1 q-ma-xs q-pt-sm">Available:</p>
                 <q-space></q-space>
-                <p class="q-ma-xs q-mr-md">{{resourcesInfo.available}}</p>
+                <p class="text-subtitle1 q-ma-xs q-mr-md">{{resourcesInfo.available}}</p>
               </div>
               <q-separator class="bg-grey-14" />
               <div class="text-h6 text-white row">
-                <p class="q-ma-xs q-pt-sm">Refunding:</p>
+                <p class="text-subtitle1 q-ma-xs q-pt-sm">Refunding:</p>
                 <q-space></q-space>
-                <p class="q-ma-xs q-mr-md">{{resourcesInfo.refunding}}</p>
+                <p class="text-subtitle1 q-ma-xs q-mr-md">{{resourcesInfo.refunding}}</p>
               </div>
               <q-separator class="bg-grey-14" />
               <div class="text-h6 text-white row">
-                <p class="q-ma-xs q-pt-sm">CPU Staked:</p>
+                <p class="text-subtitle1 q-ma-xs q-pt-sm">CPU Staked:</p>
                 <q-space></q-space>
-                <p class="q-ma-xs q-mr-md">{{resourcesInfo.CPUStaked}}</p>
+                <p class="text-subtitle1 q-ma-xs q-mr-md">{{resourcesInfo.CPUStaked}}</p>
               </div>
               <q-separator class="bg-grey-14" />
               <div class="text-h6 text-white row">
-                <p class="q-ma-xs q-pt-sm">NET Staked:</p>
+                <p class="text-subtitle1 q-ma-xs q-pt-sm">NET Staked:</p>
                 <q-space></q-space>
-                <p class="q-ma-xs q-mr-md">{{resourcesInfo.NetStaked}}</p>
+                <p class="text-subtitle1 q-ma-xs q-mr-md">{{resourcesInfo.NetStaked}}</p>
               </div>
               <q-separator class="bg-grey-14" />
               <div class="text-h6 text-white row">
-                <p class="q-ma-xs q-pt-sm">Staked by Others:</p>
+                <p class="text-subtitle1 q-ma-xs q-pt-sm">Staked by Others:</p>
                 <q-space></q-space>
-                <p class="q-ma-xs q-mr-md">{{resourcesInfo.stakedbyOthers}}</p>
+                <p class="text-subtitle1 q-ma-xs q-mr-md">{{resourcesInfo.stakedbyOthers}}</p>
               </div>
               <q-separator class="bg-grey-14" />
               <div class="text-h6 text-white row">
-                <p class="q-ma-xs q-pt-sm">TotalREX:</p>
+                <p class="text-subtitle1 q-ma-xs q-pt-sm">TotalREX:</p>
                 <q-space></q-space>
-                <p class="q-ma-xs q-mr-md">{{resourcesInfo.totalREX}}</p>
+                <p class="text-subtitle1 q-ma-xs q-mr-md">{{resourcesInfo.totalREX}}</p>
               </div>
               <q-separator class="bg-grey-14" />
             </div>
