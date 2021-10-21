@@ -19,17 +19,18 @@
                   class="q-pa-none text-white q-ma-none bg-grey-10 internal-titles"
                   label="Resources"
                   style="margin-left:-15px"
-                  :duration="10"
                   @click="selectedItem('resources')"
                 >
                 <q-card dark class="q-pa-none q-ma-none">
-                  <q-card-section class="q-pa-none ">
-                  <q-expansion-item 
-                  label="Buy/Sell RAM"
-                  class="q-pa-none" expand-icon="memory"
-                  switch-toggle-side   
-                  @click="selectedItem('transactions')">
-                  </q-expansion-item>
+                  <q-card-section  class="cursor-pointer q-pa-none">
+                    <div @click="selectedItem('buySellRAM')" class="cursor-pointer q-pa-none row">
+                      <q-img  width="20px" height="22px" class="q-mt-sm q-pt-xs q-ml-md" src="../../../assets/picture/RAM-icon.svg" />
+                      <p class="text-white q-mt-sm q-ml-md">Buy/Sell RAM</p>
+                    </div>
+                    <div @click="selectedItem('stakeCpuNet')" class="cursor-pointer q-pa-none row">
+                      <q-img  width="20px" height="22px" class="q-mt-sm q-pt-xs q-ml-md" src="../../../assets/picture/chip-icon.svg" />
+                      <p class="text-white q-mt-sm q-ml-md">Stake CPU/NET</p>
+                    </div>
                   </q-card-section >
                 </q-card>
               </q-expansion-item>
