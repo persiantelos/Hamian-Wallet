@@ -14,10 +14,25 @@
       <!-- RESOURCES -->
       <div class="col-12 menue-internal-box bg-grey-10 q-ma-md">
         <div class="q-pa-xs q-ml-md q-mt-sm">
-          <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer" @click="selectedItem('resources')">Resources</h3>
-          <div class="col-12" v-for="(recource , index) in resources" :key="index">
-            <p class="text-white text-caption cursor-pointer">{{resource.name}}</p>
-          </div>
+          <!-- <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer" @click="selectedItem('resources')">Resources</h3> -->
+          <q-expansion-item
+                  class="q-pa-none text-white q-ma-none bg-grey-10 internal-titles"
+                  label="Resources"
+                  style="margin-left:-15px"
+                  :duration="10"
+                  @click="selectedItem('resources')"
+                >
+                <q-card dark class="q-pa-none q-ma-none">
+                  <q-card-section class="q-pa-none ">
+                  <q-expansion-item 
+                  label="Buy/Sell RAM"
+                  class="q-pa-none" expand-icon="memory"
+                  switch-toggle-side   
+                  @click="selectedItem('transactions')">
+                  </q-expansion-item>
+                  </q-card-section >
+                </q-card>
+              </q-expansion-item>
         </div>
       </div>
       <!-- TOKEN lIST -->

@@ -23,18 +23,7 @@ const remote = require('electron').remote;
 export default class Networks extends Vue{
   accuntList:any=[];
   selectedItemChanged(data:any){
-    if(data == 'accountList'){
-      this.accuntList = data;
-    }
-    else if(data == 'resources'){
-      this.accuntList = data;
-    }
-    else if(data == 'tokens'){
-      this.accuntList = data;
-    }
-    else if(data == 'transferToken'){
-      this.accuntList = data;
-    }
+    this.accuntList = data;
   }
   // @Prop({default:() =>{return []}}) blockChain:any;
   // created(){
