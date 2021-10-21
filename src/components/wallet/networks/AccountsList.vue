@@ -19,17 +19,109 @@
         </div>
       </div>
       <!-- Resources -->
-      <div v-show="value == 'resources'" class="col-12 account-list-internal-box bg-grey-10 q-ma-md" >
-        <div class="q-pa-xs q-ml-md q-mt-sm" >
-          
-          <!-- <div class="row" v-for="(account , index) in data.resources" :key="index">
-            <q-icon name="person" color="white" size="22px" class="q-ma-md" />
-            <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer q-mt-xs">{{account.name}}</h3>
-          </div> -->
-          <!-- CONTENT -->
-          <!-- <div class="col-12 q-ma-md" > -->
-            <!-- <p class="text-white text-caption cursor-pointer">{{account.name}}</p> -->
-          <!-- </div> -->
+      <div v-show="value == 'resources'" class="col-12 account-list-internal-box  q-ma-md" >
+        <div class="q-pa-xs q-ma-xs q-mt-sm" >
+          <!-- Information -->
+          <div class="col-12 account-list-internal-box bg-grey-9 q-ma-md">
+            <div class="text-h6 text-white q-ml-sm q-mb-md">Resources</div> 
+            <div class="row col-12">
+              <div class="col resource-box text-center bg-grey-10 q-ma-xs q-pa-md">
+                <div class="text-white">
+                  <!-- RAM -->
+                  <p class="text-subtitle2">RAM</p>
+                  <q-circular-progress
+                    show-value
+                    font-size="12px"
+                    :value="resource.ram.used"
+                    size="70px"
+                    :thickness="0.22"
+                    color="info"
+                    track-color="grey-14"
+                  >
+                    {{ resource.ram.used }}%
+                  </q-circular-progress>
+                  <p class="q-ma-xs q-mt-sm text-subtitle1 text-info">Total: {{resource.ram.total}} KB</p>
+
+                </div>
+              </div>
+              <div class="col resource-box text-center bg-grey-10 q-ma-xs q-pa-md">
+                <div class="text-white">
+                  <!-- CPU -->
+                  <p class="text-subtitle2">CPU</p>
+                  <q-circular-progress
+                    show-value
+                    font-size="12px"
+                    :value="resource.cpu.used"
+                    size="70px"
+                    :thickness="0.22"
+                    color="primary"
+                    track-color="grey-14"
+                  >
+                    {{ resource.cpu.used }} %
+                  </q-circular-progress>
+                  <p class="q-ma-xs q-mt-sm text-subtitle1 text-primary">Total: {{resource.cpu.total}} ms</p>
+
+                </div>
+              </div>
+              <div class="col resource-box text-center bg-grey-10 q-ma-xs q-pa-md">
+                <div class="text-white">
+                  <!-- NET -->
+                  <p class="text-subtitle2">NET</p>
+                  <q-circular-progress
+                    show-value
+                    font-size="12px"
+                    :value="resource.net.used"
+                    size="70px"
+                    :thickness="0.22"
+                    color="green-8"
+                    track-color="grey-14"
+                  >
+                    {{ resource.net.used }} %
+                  </q-circular-progress>
+                  <p class="q-ma-xs q-mt-sm text-subtitle1 text-green-8">Total: {{resource.net.total}} KB</p>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-12 account-list-internal-box  bg-grey-10 q-ma-xs">
+              <div class="text-h6 text-white row">
+                <p class="q-ma-xs q-pt-sm">Available:</p>
+                <q-space></q-space>
+                <p class="q-ma-xs q-mr-md">{{resourcesInfo.available}}</p>
+              </div>
+              <q-separator class="bg-grey-14" />
+              <div class="text-h6 text-white row">
+                <p class="q-ma-xs q-pt-sm">Refunding:</p>
+                <q-space></q-space>
+                <p class="q-ma-xs q-mr-md">{{resourcesInfo.refunding}}</p>
+              </div>
+              <q-separator class="bg-grey-14" />
+              <div class="text-h6 text-white row">
+                <p class="q-ma-xs q-pt-sm">CPU Staked:</p>
+                <q-space></q-space>
+                <p class="q-ma-xs q-mr-md">{{resourcesInfo.CPUStaked}}</p>
+              </div>
+              <q-separator class="bg-grey-14" />
+              <div class="text-h6 text-white row">
+                <p class="q-ma-xs q-pt-sm">NET Staked:</p>
+                <q-space></q-space>
+                <p class="q-ma-xs q-mr-md">{{resourcesInfo.NetStaked}}</p>
+              </div>
+              <q-separator class="bg-grey-14" />
+              <div class="text-h6 text-white row">
+                <p class="q-ma-xs q-pt-sm">Staked by Others:</p>
+                <q-space></q-space>
+                <p class="q-ma-xs q-mr-md">{{resourcesInfo.stakedbyOthers}}</p>
+              </div>
+              <q-separator class="bg-grey-14" />
+              <div class="text-h6 text-white row">
+                <p class="q-ma-xs q-pt-sm">TotalREX:</p>
+                <q-space></q-space>
+                <p class="q-ma-xs q-mr-md">{{resourcesInfo.totalREX}}</p>
+              </div>
+              <q-separator class="bg-grey-14" />
+            </div>
+          </div>
         </div>
       </div>
       <!-- Tokens -->
@@ -222,6 +314,20 @@ export default class AccountsList extends Vue{
     tokens:[],
     transferToken:[],
   };
+  // µs
+  resource:any={
+    ram:{used:'30.25',total:'24.92'},
+    cpu:{used:'55.50',total:' 5.07'},
+    net:{used:'20',total:'34.5'},
+  }
+  resourcesInfo:any={
+    available:'2 TLOS',
+    refunding:'0 TLOS',
+    CPUStaked:'0.0000 TLOS',
+    NetStaked:'0.0000 TLOS',
+    totalREX:'0.002 TLOS',
+    stakedbyOthers:'0.0000 TLOS',
+  }
   mounted(){
     this.selectedNFTs = 'SelectNFT';
     
@@ -281,5 +387,10 @@ export default class AccountsList extends Vue{
     }
   }
 
+}
+.resource-box{
+  width:150px;
+  height:200px;
+  border-radius:20px
 }
 </style>
