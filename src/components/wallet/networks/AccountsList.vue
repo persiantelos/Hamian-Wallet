@@ -75,6 +75,7 @@
             transition-next="jump-left" 
             class="bg-grey-10 text-white"
           >
+          <!-- transfer token -->
           <q-tab-panel name="token" >
             <div class="col-12 text-white q-mt-xs">
             <div class="text-h6 q-mb-md">Amount:
@@ -163,7 +164,7 @@
             <q-btn size="20px" color="primary" class="q-pa-xs" :label="'Teransfer ' + transferToken.amount + ' Telos'" />
           </div>
           </q-tab-panel>
-
+          <!-- transfer nft -->
           <q-tab-panel name="nft" class="col-12">
             <div class="text-h6 q-mb-md">NFT</div>
             <q-btn-dropdown dropdown-icon="ion" color="primary" class="col-12 full-width " align="left" :label="selectedNFTs">
