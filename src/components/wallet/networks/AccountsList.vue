@@ -21,14 +21,15 @@
       <!-- Resources -->
       <div v-show="value == 'resources'" class="col-12 account-list-internal-box bg-grey-10 q-ma-md" >
         <div class="q-pa-xs q-ml-md q-mt-sm" >
-          <div class="row" v-for="(account , index) in data.resources" :key="index">
+          
+          <!-- <div class="row" v-for="(account , index) in data.resources" :key="index">
             <q-icon name="person" color="white" size="22px" class="q-ma-md" />
             <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer q-mt-xs">{{account.name}}</h3>
-          </div>
+          </div> -->
           <!-- CONTENT -->
-          <div class="col-12 q-ma-md" >
+          <!-- <div class="col-12 q-ma-md" > -->
             <!-- <p class="text-white text-caption cursor-pointer">{{account.name}}</p> -->
-          </div>
+          <!-- </div> -->
         </div>
       </div>
       <!-- Tokens -->
@@ -163,12 +164,18 @@
           </div>
           </q-tab-panel>
 
-          <q-tab-panel name="nft" >
-            <div class="text-h4 q-mb-md">Alarms</div>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
+          <q-tab-panel name="nft" class="col-12">
+            <div class="text-h6 q-mb-md">NFT</div>
+            <q-btn-dropdown dropdown-icon="ion" color="primary" class="col-12 full-width " align="left" :label="selectedNFTs">
+              <q-list class="bg-grey-10" dark>
+                <q-item clickable v-close-popup @click="selectNft(nft)" v-for="(nft,index) in nftList" :key="index">
+                  <q-item-section>
+                    <q-item-label>{{nft.title}}</q-item-label>
+                  </q-item-section>
+                </q-item>
+              </q-list>
+            </q-btn-dropdown>
           </q-tab-panel>
-
-         
         </q-tab-panels>
 
         </div>
@@ -193,8 +200,13 @@ export default class AccountsList extends Vue{
   @Prop({default:() =>{return []}}) value:any;
   counter:number=0;
   tab:string='token'
+  selectedNFTs:any=[];
   showCustomToken:boolean=false;
   tokenList:any=[]
+  nftList:any=[
+    {title:'test1'},
+    {title:'test2'},
+  ]
   transferToken:any={
     customToken:'',
     amount:0,
@@ -209,6 +221,10 @@ export default class AccountsList extends Vue{
     tokens:[],
     transferToken:[],
   };
+  mounted(){
+    this.selectedNFTs = 'SelectNFT';
+    
+  }
   @Watch('value')
   valueChanged(newValue:any){
     if(newValue == 'accountList'){
@@ -225,6 +241,9 @@ export default class AccountsList extends Vue{
       // this.transferToken =
       // this.getTransferToken();
     }
+  }
+  selectNft(nft:any){
+    this.selectedNFTs = nft.title;
   }
   async getResources(){
     this.data.resources = await AccountService.getAccount(this.$route.params.chainId)
