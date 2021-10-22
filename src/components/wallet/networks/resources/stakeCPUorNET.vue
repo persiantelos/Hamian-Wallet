@@ -77,7 +77,54 @@
         </q-tab-panel>
         <q-tab-panel name="Unstake" >
             <div class="col-12">
-                Unstake
+                <div class="text-h6 q-mb-md">
+                    <p class="text-subtitle1 q-ml-xs">Account name of who currently holds stake:</p>
+                    <q-select 
+                    outlined 
+                    class="bg-grey-10" 
+                    color="white" 
+                    dark 
+                    v-model="unStakeCPUorNET.selectedAccountForUnStake" 
+                    :options="unStakeCPUorNET.accountHoldStake"  />
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="text-h6 q-mb-md">
+                    <p class="text-subtitle1 q-ml-xs">Amount of CPU to Unstake (in TLOS)</p>
+                    <q-input 
+                        type="text"
+                        dark
+                        class="q-ma-xs q-mt-sm input-border"  
+                        bg-color="grey-10" 
+                        color="white" 
+                        outlined 
+                        standout="bg-gray-10 text-white color-white"
+                        v-model="unStakeCPUorNET.amountCPUUnstake" 
+                    />
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="text-h6 q-mb-md">
+                    <p class="text-subtitle1 q-ml-xs">Amount of NET to Unstake (in TLOS)</p>
+                    <q-input 
+                        type="text"
+                        dark
+                        class="q-ma-xs q-mt-sm input-border"  
+                        bg-color="grey-10" 
+                        color="white" 
+                        outlined 
+                        standout="bg-gray-10 text-white color-white"
+                        v-model="unStakeCPUorNET.amountNETUnstake" 
+                    />
+                </div>
+            </div>
+            <div align="center">
+                <q-btn 
+                size="20px"
+                color="primary" 
+                class="q-pa-xs"
+                @click="unStake()"
+                label="Unstake" />
             </div>
         </q-tab-panel>
         <q-tab-panel name="Refound" >
@@ -98,7 +145,13 @@ import {Vue , Component , Prop} from 'vue-property-decorator';
 })
 export default class StakeCPUorNET extends Vue{
     @Prop({default:()=>{return []}}) stakeCPUorNET:any;
+    @Prop({default:()=>{return []}}) unStakeCPUorNET:any;
+    @Prop({default:()=>{return []}}) refound:any;
     stakeAndUnstakeTab:string="Stake"
+    accountHoldStake:any=[
+        'mohammad','vahid','reza'
+    ];
+    selectedAccountForUnStake:string="";
 
     calculateAmountCPUtoStakeTelos(data:any){
         // TODO:needs service

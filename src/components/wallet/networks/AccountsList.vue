@@ -132,7 +132,7 @@
             </div>
             <!-- Stake CPU/NET -->
             <div v-show="value == 'stakeCpuNet'" class="col-12 account-list-internal-box  bg-grey-10 q-ma-xs">
-              <StakeCPUorNET :stakeCPUorNET="stakeCPUorNET" />
+              <StakeCPUorNET :stakeCPUorNET="stakeCPUorNET" :unStakeCPUorNET="unStakeCPUorNET" />
             </div>
           </div>
         </div>
@@ -317,6 +317,15 @@ export default class AccountsList extends Vue{
     CPUAmountToStake:0,
     NETAmountToStake:0,
   };
+  unStakeCPUorNET:any={
+    accountHoldStake:[
+        'mohammad','vahid','reza'
+    ],
+    selectedAccountForUnStake:'',
+    amountCPUUnstake:0,
+    amountNETUnstake:0,
+
+  }
   buySellRAM:any={
     RAMBuyAmount:0,
     RAMConvertedToBytes:0,
