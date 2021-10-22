@@ -19,8 +19,8 @@
         </div>
       </div>
       <!-- Resources -->
-      <div 
-      v-show="(value == 'resources') || value == 'buySellRAM' || value == 'stakeCpuNet'" class="col-12 account-list-internal-box  q-ma-md" >
+      <div v-show="(value == 'resources') || value == 'buySellRAM' || value == 'stakeCpuNet'"
+       class="col-12 account-list-internal-box  q-ma-md" >
         <div class="q-pa-xs q-ma-xs q-mt-sm" >
           <!-- Information -->
           <div class="col-12 account-list-internal-box bg-grey-9 q-ma-md">
@@ -129,24 +129,16 @@
               <BuyandSellRAM :buySellRAM="buySellRAM" />
             </div>
 
-            </div>
+          </div>
             <!-- Stake CPU/NET -->
             <div v-show="value == 'stakeCpuNet'" class="col-12 account-list-internal-box  bg-grey-10 q-ma-xs">
               <StakeCPUorNET :stakeCPUorNET="stakeCPUorNET" :unStakeCPUorNET="unStakeCPUorNET" />
             </div>
           </div>
         </div>
-      </div>
       <!-- Tokens -->
       <div v-show="value == 'tokens'" class="col-12 account-list-internal-box bg-grey-10 q-ma-md" >
-        <div class="q-pa-xs q-ml-md q-mt-sm" >
-        
-          <div class="row" v-for="(account , index) in data.tokens" :key="index">
-            <q-icon name="person" color="white" size="22px" class="q-ma-md" />
-            <h3 class="text-white q-pa-none q-ma-none internal-titles cursor-pointer q-mt-xs">{{account.name}}</h3>
-          </div>
-        
-        </div>
+          tokens
       </div>
       <!-- Transfer Token -->
       <div v-show="value == 'transferToken'" class="col-12 account-list-internal-box bg-grey-10 q-ma-md" >
@@ -309,6 +301,7 @@ const remote = require('electron').remote;
 export default class AccountsList extends Vue{ 
   @Prop({default:() =>{return []}}) value:any;
   counter:number=0;
+  showCustomToken:boolean=false;
   tokenTab:string='token'
   buyWith:string='TELOS'
   selectedNFTs:any=[];
@@ -372,6 +365,8 @@ export default class AccountsList extends Vue{
   }
   @Watch('value')
   valueChanged(newValue:any){
+    console.log('new Value',newValue);
+    
     if(newValue == 'accountList'){
       this.getAccounts();
     }
@@ -391,6 +386,7 @@ export default class AccountsList extends Vue{
       // this.getTokens();
     }
     else if(newValue == 'transferToken'){
+      this.counter++
       // this.transferToken =
       // this.getTransferToken();
     }

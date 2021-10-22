@@ -129,7 +129,9 @@
         </q-tab-panel>
         <q-tab-panel name="Refound" >
             <div class="col-12">
-                Refound
+                <!-- username needs service -->
+                <!-- No outstanding refund request for {{username}} -->
+                No outstanding refund request for username
             </div>
         </q-tab-panel>
 
@@ -148,10 +150,6 @@ export default class StakeCPUorNET extends Vue{
     @Prop({default:()=>{return []}}) unStakeCPUorNET:any;
     @Prop({default:()=>{return []}}) refound:any;
     stakeAndUnstakeTab:string="Stake"
-    accountHoldStake:any=[
-        'mohammad','vahid','reza'
-    ];
-    selectedAccountForUnStake:string="";
 
     calculateAmountCPUtoStakeTelos(data:any){
         // TODO:needs service
