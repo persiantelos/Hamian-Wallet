@@ -149,6 +149,7 @@ export default class LocalLogin extends Vue{
 .login-body{
   position: relative ;
   .login-box{
+    top:10%;
     min-height: 500px;
     position: absolute;
     left: 0;
