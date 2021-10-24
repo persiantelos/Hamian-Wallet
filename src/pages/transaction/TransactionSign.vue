@@ -124,6 +124,7 @@ export default class TransactionSign extends Vue{
   position: relative ;
   .login-box{
     position: absolute;
+    top: 10%;
     left: 0;
     right: 0;
     margin: auto;
