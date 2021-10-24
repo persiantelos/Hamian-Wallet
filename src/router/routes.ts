@@ -40,6 +40,13 @@ const routes: RouteConfig[] = [
       { path: '', component: () => import('pages/transaction/TransactionSign.vue'),name:'transactionCode' },
     ],
   },
+  {
+    path: '/relink',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/auth/ReLink.vue'),name:'ReLink' },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it

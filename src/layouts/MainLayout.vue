@@ -103,7 +103,7 @@
         </q-card>
       </q-expansion-item>
       </q-list>
-      <p ><router-link class="text-white text-h6" :to="{name:'transactionCode'}">transaction code</router-link></p>
+      <p ><router-link class="text-white text-h6" :to="{name:'ReLink'}">Re-link</router-link></p>
  
       </q-list>
 
