@@ -62,8 +62,7 @@
       </q-toolbar>
     </q-header>
      
-    <!-- TODO:wallet list and add account and is here -->
-    <div>wallet list and add account and is here</div>
+
     <!-- MAIN PANEL -->
     <q-drawer class="main-layout-side-panel"
       :value="true"
@@ -104,6 +103,7 @@
         </q-card>
       </q-expansion-item>
       </q-list>
+      <p ><router-link class="text-white text-h6" :to="{name:'transactionCode'}">transaction code</router-link></p>
  
       </q-list>
 

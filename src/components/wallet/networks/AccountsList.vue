@@ -138,7 +138,9 @@
         </div>
       <!-- Tokens -->
       <div v-show="value == 'tokens'" class="col-12 account-list-internal-box bg-grey-10 q-ma-md" >
-          tokens
+          <p class="text-white q-ma-md q-pa-sm q-pb-xl">
+            No tokens owned .
+          </p>
       </div>
       <!-- Transfer Token -->
       <div v-show="value == 'transferToken'" class="col-12 account-list-internal-box bg-grey-10 q-ma-md" >

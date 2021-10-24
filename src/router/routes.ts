@@ -33,6 +33,13 @@ const routes: RouteConfig[] = [
       { path: 'loginwithfile', component: () => import('pages/auth/LoginWithFile.vue'),name:'loginwithfile',meta:{isPublic:true} },
     ],
   },
+  {
+    path: '/transactionsign',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/transaction/TransactionSign.vue'),name:'transactionCode' },
+    ],
+  },
 
   // Always leave this as last one,
   // but you can also remove it
