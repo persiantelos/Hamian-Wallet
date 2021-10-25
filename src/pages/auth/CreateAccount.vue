@@ -114,6 +114,7 @@ export default class Login extends Vue{
 .login-body{
   position: relative ;
   .login-box{
+    top:10%;
     position: absolute;
     left: 0;
     right: 0;
